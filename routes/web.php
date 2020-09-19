@@ -27,6 +27,7 @@ Route::get('/account-fav', [PagesController::class, 'favouriteAds']);
 Route::get('/account-myads', [PagesController::class, 'myAds']);
 Route::get('/account-settings', [PagesController::class, 'settings']);
 Route::get('/ad/{id}/details', [PagesController::class, 'adDetails']);
+Route::get('/maintenance', [PagesController::class, 'maintenance']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 

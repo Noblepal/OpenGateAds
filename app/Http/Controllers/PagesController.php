@@ -6,8 +6,18 @@ use Illuminate\Http\Request;
 
 class PagesController extends Controller
 {
+
+    public function __construct()
+    {
+        return redirect('pages.maintenance');
+    }
+
     public function index(){
         return view('pages.index');
+    }
+
+    public function maintenance(){
+        return view('pages.maintenance');
     }
 
     public function dashboard(){
