@@ -253,7 +253,7 @@
                                 <div class="category-icon-item">
                                     <div class="icon-box">
                                         <div class="icon">
-                                            <img src="{{ asset('img/category/img-1.png') }}" alt="">
+                                            <img src="{{ asset('assets/img/category/img-1.png') }}" alt="">
                                         </div>
                                         <h4>Bicycle</h4>
                                     </div>
@@ -372,34 +372,23 @@
                 <div class="row">
                     <div class="col-lg-4 col-md-4 col-xs-6 col-mb-12">
                         <div class="widget">
-                            <div class="footer-logo"><img src="{{ asset('assets/img/logo.png') }}" alt="""></div>
-<div class=" textwidget">
-                                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
-                                    consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt consectetur,
-                                    adipisci velit.</p>
+                            <div class="footer-logo"><img src="{{ asset('assets/img/logo-small.png') }}" alt="""></div>
+                            <div class=" textwidget">
+                                <p>Open gate is a flagship outage resource combine harvester for <a href="http://mobharvesters.net">Mobharvesters.net</a> rooted upon a firm foundation to ensure consistent and undisputable marketing performance.</p>
                             </div>
-                            <ul class="mt-3 footer-social">
+                            {{-- <ul class="mt-3 footer-social">
                                 <li><a class="facebook" href="#"><i class="lni-facebook-filled"></i></a></li>
                                 <li><a class="twitter" href="#"><i class="lni-twitter-filled"></i></a></li>
                                 <li><a class="linkedin" href="#"><i class="lni-linkedin-fill"></i></a></li>
                                 <li><a class="google-plus" href="#"><i class="lni-google-plus"></i></a></li>
-                            </ul>
+                            </ul> --}}
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4 col-xs-6 col-mb-12">
                         <div class="widget">
-                            <h3 class="block-title">Quick Link</h3>
+                            <h3 class="block-title">Quick Links</h3>
                             <ul class="menu">
-                                <li><a href="#">- About Us</a></li>
-                                <li><a href="#">- Blog</a></li>
-                                <li><a href="#">- Events</a></li>
-                                <li><a href="#">- Shop</a></li>
-                                <li><a href="#">- FAQ's</a></li>
-                                <li><a href="#">- About Us</a></li>
-                                <li><a href="#">- Blog</a></li>
-                                <li><a href="#">- Events</a></li>
-                                <li><a href="#">- Shop</a></li>
-                                <li><a href="#">- FAQ's</a></li>
+                                <li><a href="#">About Us</a></li>
                             </ul>
                         </div>
                     </div>
@@ -408,21 +397,19 @@
                             <h3 class="block-title">Contact Info</h3>
                             <ul class="contact-footer">
                                 <li>
-                                    <strong><i class="lni-phone"></i></strong><span>+1 555 444 66647 <br> +1 555 444
-                                        66647</span>
+                                    <strong><i class="lni-phone"></i></strong><span>+254123456789 <br> +254123456789</span>
                                 </li>
                                 <li>
                                     <strong><i class="lni-envelope"></i></strong><span><a
-                                            href="http://preview.uideck.com/cdn-cgi/l/email-protection"
+                                            href="mailto:info@mobharvesters.net"
                                             class="__cf_email__"
-                                            data-cfemail="cdaea2a3b9acaeb98da0aca4a1e3aea2a0">[email&#160;protected]</a>
-                                        <br> <a href="http://preview.uideck.com/cdn-cgi/l/email-protection"
+                                            data-cfemail="cdaea2a3b9acaeb98da0aca4a1e3aea2a0">info@mobharvesters.net</a>
+                                        <br> <a href="support@mobharvesters.net"
                                             class="__cf_email__"
-                                            data-cfemail="d8abada8a8b7aaac98b5b9b1b4f6bbb7b5">[email&#160;protected]</a></span>
+                                            data-cfemail="d8abada8a8b7aaac98b5b9b1b4f6bbb7b5">support@mobharvesters.net</a></span>
                                 </li>
                                 <li>
-                                    <strong><i class="lni-map-marker"></i></strong><span><a href="#">9870 St Vincent
-                                            Place, Glasgow, DC 45 <br>Fr 45</a></span>
+                                    <strong><i class="lni-map-marker"></i></strong><span><a href="#">Ruaraka,<br> Nairobi</a></span>
                                 </li>
                             </ul>
                         </div>
@@ -437,7 +424,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="site-info text-center">
-                            <p><a target="_blank" href="https://templateshub.net">Templates Hub</a></p>
+                           <p> &copy; <a target="_blank" href="https://mobharvesters.net">Mobharvesters.net</a></p>
                         </div>
                     </div>
                 </div>
