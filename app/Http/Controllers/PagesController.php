@@ -12,47 +12,59 @@ class PagesController extends Controller
         return redirect('pages.maintenance');
     }
 
-    public function index(){
+    public function index()
+    {
         return view('pages.index');
     }
 
-    public function maintenance(){
+    public function maintenance()
+    {
         return view('pages.maintenance');
     }
 
-    public function dashboard(){
+    public function dashboard()
+    {
         return view('pages.dashboard');
     }
 
-    public function categories(){
-        return view('pages.categories');
+    public function categories()
+    {
+        $header = false;
+        return view('pages.categories')->with('no_header', $header);
     }
 
-    public function about(){
+    public function about()
+    {
         return view('pages.about');
     }
 
-    public function contact(){
+    public function contact()
+    {
         return view('pages.contact');
     }
 
-    public function postAd(){
+    public function postAd()
+    {
         return view('pages.post_ad');
     }
 
-    public function adDetails($id){
+    public function adDetails($id)
+    {
         return view('pages.ad_details')->with('id', $id);
     }
 
-    public function favouriteAds(){
+    public function favouriteAds()
+    {
         return view('pages.acc_fav_ads');
     }
 
-    public function myAds(){
+    public function myAds()
+    {
         return view('pages.acc_my_ads');
     }
 
-    public function settings(){
+    public function settings()
+    {
         return view('pages.acc_settings');
     }
 }

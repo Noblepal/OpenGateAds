@@ -355,7 +355,7 @@ a.back-to-top:focus {
     height: 100%;
     border-radius: 100%;
     border: 7px solid transparent;
-    border-top-color: #e91e63
+    border-top-color: #00B050
 }
 
 #loader-1:before {
@@ -747,7 +747,8 @@ a.back-to-top:focus {
 }
 
 .mobile-menu {
-    display: none
+    background: #1B2022;
+    display: none;
 }
 
 .slicknav_menu {
@@ -784,6 +785,7 @@ a.back-to-top:focus {
         width: 75%
     }
     #mobile-menu {
+        background: #1B2022;
         display: none
     }
     .slicknav_menu {
