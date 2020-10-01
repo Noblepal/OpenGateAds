@@ -175,7 +175,7 @@
                             Lobibox.notify("error", {
                                 pauseDelayOnHover: true,
                                 continueDelayOnInactiveTab: false,
-                                position: "top right",
+                                position: "bottom right",
                                 icon: "fa fa-times-circle",
                                 msg: data.errors[count],
                             });
@@ -190,7 +190,7 @@
                         Lobibox.notify("error", {
                             pauseDelayOnHover: true,
                             continueDelayOnInactiveTab: false,
-                            position: "top right",
+                            position: "bottom right",
                             icon: "fa fa-times-circle",
                             msg: data.error,
                         });
@@ -208,7 +208,7 @@
                         Lobibox.notify("success", {
                             pauseDelayOnHover: true,
                             continueDelayOnInactiveTab: false,
-                            position: "top right",
+                            position: "bottom right",
                             icon: "fa fa-check-circle",
                             msg: data.success,
                         });
@@ -228,7 +228,7 @@
                     Lobibox.notify("error", {
                         pauseDelayOnHover: true,
                         continueDelayOnInactiveTab: false,
-                        position: "top right",
+                        position: "bottom right",
                         icon: "fa fa-times-circle",
                         msg: "Something went wrong",
                     });
@@ -252,7 +252,7 @@
                             Lobibox.notify("error", {
                                 pauseDelayOnHover: true,
                                 continueDelayOnInactiveTab: false,
-                                position: "top right",
+                                position: "bottom right",
                                 icon: "fa fa-times-circle",
                                 msg: data.errors,
                             });
@@ -261,7 +261,7 @@
                             Lobibox.notify("error", {
                                 pauseDelayOnHover: true,
                                 continueDelayOnInactiveTab: false,
-                                position: "top right",
+                                position: "bottom right",
                                 icon: "fa fa-check-circle", //path to image
                                 msg: data.error,
                             });
@@ -271,7 +271,7 @@
                             Lobibox.notify("success", {
                                 pauseDelayOnHover: true,
                                 continueDelayOnInactiveTab: false,
-                                position: "top right",
+                                position: "bottom right",
                                 icon: "fa fa-check-circle", //path to image
                                 msg: data.success,
                             });
@@ -284,7 +284,7 @@
                         Lobibox.notify("error", {
                             pauseDelayOnHover: true,
                             continueDelayOnInactiveTab: false,
-                            position: "top right",
+                            position: "bottom right",
                             icon: "fa fa-times-circle",
                             msg: "Something went wrong",
                         });
