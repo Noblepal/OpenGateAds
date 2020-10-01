@@ -16,6 +16,15 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/owl.carousel.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/main.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/responsive.css') }}">
+    <!-- notifications css -->
+    <link rel="stylesheet" href="{{asset('assets/plugins/notifications/css/lobibox.min.css')}}"/>
+
+    <script src="{{ asset('assets/js/jquery-min.js ') }}"></script>
+    <script src="{{ asset('assets/js/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+{{--    <script src="{{asset('assets/js/ajax.js')}}/"></script>--}}
+    <!--Select Plugins Js-->
+    <script src="{{asset('assets/plugins/select2/js/select2.min.js')}}"></script>
 </head>
 
 <body>
@@ -31,6 +40,9 @@
 
     @include('includes.footer')
 
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+    </form>
     <a href="#" class="back-to-top">
         <i class="lni-chevron-up"></i>
     </a>
@@ -40,10 +52,6 @@
     </div>
 
 
-    <script data-cfasync="false" src="cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-    <script src="{{ asset('assets/js/jquery-min.js ') }}"></script>
-    <script src="{{ asset('assets/js/popper.min.js') }}"></script>
-    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/js/color-switcher.js') }}"></script>
     <script src="{{ asset('assets/js/jquery.counterup.min.js') }}"></script>
     <script src="{{ asset('assets/js/waypoints.min.js') }}"></script>
@@ -53,7 +61,12 @@
     <script src="{{ asset('assets/js/main.js') }}"></script>
     <script src="{{ asset('assets/js/form-validator.min.js') }}"></script>
     <script src="{{ asset('assets/js/contact-form-script.min.js') }}"></script>
-    <script src="{{ asset('assets/js/summernote.js') }}"></script>
+
+    <!--notification js -->
+    <script src="{{asset('assets/plugins/notifications/js/lobibox.min.js')}}"></script>
+    <script src="{{asset('assets/plugins/notifications/js/notifications.min.js')}}"></script>
+    <script src="{{asset('assets/plugins/notifications/js/notification-custom-script.js')}}"></script>
+
 </body>
 
 

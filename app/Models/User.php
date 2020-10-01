@@ -2,17 +2,20 @@
 
 namespace App\Models;
 
+use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Traits\UsesUUID;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Iatstuti\Database\Support\CascadeSoftDeletes;
 use Models\Ad;
+use Overtrue\LaravelFavorite\Traits\Favoriter;
+
+
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, UsesUUID,SoftDeletes,CascadeSoftDeletes;
+    use HasFactory, Notifiable, UsesUUID,SoftDeletes,CascadeSoftDeletes,Favoriter;
     protected $cascadeDeletes = ['ads'];
 
     /**

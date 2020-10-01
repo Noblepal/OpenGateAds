@@ -9,6 +9,10 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
+use DB;
+use Auth;
+use Illuminate\Http\Request;
+
 class RegisterController extends Controller
 {
     /*
@@ -50,9 +54,10 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
+            'fname' => ['required', 'string', 'max:255'],
+            'lname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
         ]);
     }
 
@@ -65,9 +70,51 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
+            'fname' => $data['fname'],
+            'lname' => $data['lname'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        $password = Hash::make($request->password);
+
+        $user = new User;
+        $user->fname = $request->fname;
+        $user->lname = $request->lname;
+        $user->phone = $request->phone;
+        $user->email = $request->email;
+        $user->password = $password; //hashed password.
+        if ($user->save()) {
+
+
+//            DB::table('model_has_roles')->insert([
+//                'role_id' => '1',
+//                'model_type' => 'App\User',
+//                'model_id' => $user->id,
+//            ]);
+            Auth::login($user, true);
+            $user = Auth::user();
+            return redirect()->intended('/');
+//            if ($user->hasRole('Normal-User')) {
+
+                // dd($user);
+
+//                return redirect()->intended('home');
+//            } elseif ($user->hasRole('Super-Admin')) {
+
+//                return redirect()->intended('admin.index');
+//            }
+
+        }
+        //   $user->sendEmailVerificationNotification();
+
+
+
     }
 }

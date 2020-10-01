@@ -16,9 +16,12 @@ class CreateAdsTable extends Migration
         Schema::create('ads', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('title');
+            $table->uuid('user_id');
             $table->uuid('category_id');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->longText('description');
+            $table->integer('price');
             $table->string('county');
             $table->integer('is_featured')->default(0);
             $table->integer('is_active')->default(1);

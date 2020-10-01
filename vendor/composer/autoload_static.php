@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit7ab3066d91c3c3295383186223e4addd
+class ComposerStaticInit08e1fc932912ebeae9b933e3b17903d5
 {
     public static $files = array (
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
@@ -576,9 +576,9 @@ class ComposerStaticInit7ab3066d91c3c3295383186223e4addd
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Models\\Ad' => __DIR__ . '/../..' . '/app/Models/Ad.php',
-        'App\\Models\\AdCategory' => __DIR__ . '/../..' . '/app/Models/AdCategory.php',
         'App\\Models\\AdPhoto' => __DIR__ . '/../..' . '/app/Models/AdPhoto.php',
         'App\\Models\\AdReview' => __DIR__ . '/../..' . '/app/Models/AdReview.php',
+        'App\\Models\\Category' => __DIR__ . '/../..' . '/app/Models/Category.php',
         'App\\Models\\County' => __DIR__ . '/../..' . '/app/Models/County.php',
         'App\\Models\\SiteSetting' => __DIR__ . '/../..' . '/app/Models/SiteSetting.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
@@ -587,6 +587,7 @@ class ComposerStaticInit7ab3066d91c3c3295383186223e4addd
         'App\\Providers\\BroadcastServiceProvider' => __DIR__ . '/../..' . '/app/Providers/BroadcastServiceProvider.php',
         'App\\Providers\\EventServiceProvider' => __DIR__ . '/../..' . '/app/Providers/EventServiceProvider.php',
         'App\\Providers\\RouteServiceProvider' => __DIR__ . '/../..' . '/app/Providers/RouteServiceProvider.php',
+        'App\\Traits\\UsesUUID' => __DIR__ . '/../..' . '/app/Traits/UsesUUID.php',
         'ArithmeticError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/ArithmeticError.php',
         'Asm89\\Stack\\Cors' => __DIR__ . '/..' . '/asm89/stack-cors/src/Cors.php',
         'Asm89\\Stack\\CorsService' => __DIR__ . '/..' . '/asm89/stack-cors/src/CorsService.php',
@@ -691,6 +692,7 @@ class ComposerStaticInit7ab3066d91c3c3295383186223e4addd
         'Cron\\MonthField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/MonthField.php',
         'Database\\Factories\\UserFactory' => __DIR__ . '/../..' . '/database/factories/UserFactory.php',
         'Database\\Seeders\\DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeders/DatabaseSeeder.php',
+        'Database\\Seeders\\LocationTableSeeder' => __DIR__ . '/../..' . '/database/seeders/LocationTableSeeder.php',
         'DeepCopy\\DeepCopy' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/DeepCopy.php',
         'DeepCopy\\Exception\\CloneException' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/Exception/CloneException.php',
         'DeepCopy\\Exception\\PropertyException' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/Exception/PropertyException.php',
@@ -5136,10 +5138,10 @@ class ComposerStaticInit7ab3066d91c3c3295383186223e4addd
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit7ab3066d91c3c3295383186223e4addd::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit7ab3066d91c3c3295383186223e4addd::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit7ab3066d91c3c3295383186223e4addd::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit7ab3066d91c3c3295383186223e4addd::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit08e1fc932912ebeae9b933e3b17903d5::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit08e1fc932912ebeae9b933e3b17903d5::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit08e1fc932912ebeae9b933e3b17903d5::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit08e1fc932912ebeae9b933e3b17903d5::$classMap;
 
         }, null, ClassLoader::class);
     }

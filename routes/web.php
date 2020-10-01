@@ -21,13 +21,19 @@ Route::get('/', [PagesController::class, 'index']);
 Route::get('/categories', [PagesController::class, 'categories']);
 Route::get('/about', [PagesController::class, 'about']);
 Route::get('/contact', [PagesController::class, 'contact']);
-Route::get('/dashboard', [PagesController::class, 'dashboard']);
-Route::get('/ad-post', [PagesController::class, 'postAd']);
-Route::get('/account-fav', [PagesController::class, 'favouriteAds']);
-Route::get('/account-myads', [PagesController::class, 'myAds']);
-Route::get('/account-settings', [PagesController::class, 'settings']);
 Route::get('/ad/{id}/details', [PagesController::class, 'adDetails']);
 Route::get('/maintenance', [PagesController::class, 'maintenance']);
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/ad-post', [PagesController::class, 'postAd'])->name('postAd');
+    Route::get('/account-myads', [PagesController::class, 'myAds'])->name('myAds');
+    Route::get('/account-settings', [PagesController::class, 'settings'])->name('settings');
+    Route::get('/dashboard', [PagesController::class, 'dashboard'])->name('dashboard');
+    Route::get('/account-fav', [PagesController::class, 'favouriteAds'])->name('favouriteAds');
+    Route::post('/updateProfile', [PagesController::class, 'updateProfile'])->name('updateProfile');
+    Route::post('/upload-post', [PagesController::class, 'uploadPost'])->name('uploadPost');
+    Route::post('/fav-ad/{ad_id}', [PagesController::class, 'favoriteAd'])->name('favoriteAd');
+
+
+});
 

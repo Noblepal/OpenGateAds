@@ -1,401 +1,223 @@
-@extends('layouts.app')
+@extends('pages.user_dashboard')
 
-
-@section('content')
-
-
-
-
-<div class="page-header" style="background: url(assets/img/banner1.jpg);">
-    <div class="container">
-    <div class="row">
-    <div class="col-md-12">
-    <div class="breadcrumb-wrapper">
-    <h2 class="product-title">My Ads</h2>
-    <ol class="breadcrumb">
-    <li><a href="#">Home /</a></li>
-    <li class="current">My Ads</li>
-    </ol>
+@section('breadcrumb')
+    <div class="page-header" style="background: url({{asset('assets/img/banner1.jpg')}});">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="breadcrumb-wrapper">
+                        <h2 class="product-title">My Ads</h2>
+                        <ol class="breadcrumb">
+                            <li><a href="#">Home /</a></li>
+                            <li class="current">My Ads</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    </div>
-    </div>
-    </div>
-    </div>
+@endsection
+@section('user_content')
 
 
     <div id="content" class="section-padding">
-    <div class="container">
-    <div class="row">
-    <div class="col-sm-12 col-md-4 col-lg-3 page-sidebar">
-    <aside>
-    <div class="sidebar-box">
-    <div class="user">
-    <figure>
-    <a href="#"><img src="assets/img/author/img1.jpg" alt=""></a>
-    </figure>
-    <div class="usercontent">
-    <h3>Hello William!</h3>
-    <h4>Administrator</h4>
+        <div class="container">
+            <div class="row">
+                @include('layouts.user_sidebar')
+                <div class="col-sm-12 col-md-8 col-lg-9">
+                    <div class="row page-content">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="inner-box">
+                                <div class="dashboard-box">
+                                    <h2 class="dashbord-title">My Ads</h2>
+                                </div>
+
+                                <div class="dashboard-wrapper">
+                                    <nav class="nav-table">
+                                        <ul>
+                                            <li class="active"><a href="#">Featured ({{$featured_count}})</a></li>
+                                        </ul>
+                                    </nav>
+                                    <table class="table table-responsive dashboardtable tablemyads">
+                                        <thead>
+                                        <tr>
+                                            <th>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="checkedall">
+                                                    <label class="custom-control-label" for="checkedall"></label>
+                                                </div>
+                                            </th>
+                                            <th>Photo</th>
+                                            <th>Title</th>
+                                            <th>Category</th>
+                                            <th>Ad Status</th>
+                                            <th>Price</th>
+                                            <th>Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @foreach($ads as $ad)
+                                            <tr data-category="{{$ad->is_active == 1 ? 'active' : 'inactive'}}">
+                                                <td>
+                                                    <div class="custom-control custom-checkbox">
+                                                        <input type="checkbox" class="custom-control-input" id="adone">
+                                                        <label class="custom-control-label" for="adone"></label>
+                                                    </div>
+                                                </td>
+                                                <td class="photo"><img class="img-fluid"
+                                                                       src="{{url('/openGateAds').'/'.$ad->photos->where('type','main_image')->pluck('image_path')->first()}}"
+                                                                       alt="ad photo"></td>
+                                                <td data-title="Title">
+                                                    <h3>{{$ad->title}}</h3>
+                                                </td>
+                                                <td data-title="Category"><span
+                                                        class="adcategories"> {{$ad->category->name}}</span></td>
+                                                <td data-title="Ad Status"><span
+                                                        class="adstatus adstatus{{$ad->is_active == 1 ? 'active' : 'inactive'}}">{{$ad->is_active == 1 ? 'active' : 'inactive'}}</span>
+                                                </td>
+                                                <td data-title="Price">
+                                                    <h3>Ksh {{number_format($ad->price, 0)}}</h3>
+                                                </td>
+                                                <td data-title="Action">
+                                                    <div class="btns-actions">
+                                                        <a class="btn-action btn-view" href="#"><i class="lni-eye"></i></a>
+                                                        <a class="btn-action btn-edit" href="#"><i
+                                                                class="lni-pencil"></i></a>
+                                                        <a class="btn-action btn-delete" href="#"><i
+                                                                class="lni-trash"></i></a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    </div>
-    <nav class="navdashboard">
-    <ul>
-    <li>
-    <a href="dashboard.html">
-    <i class="lni-dashboard"></i>
-    <span>Dashboard</span>
-    </a>
-    </li>
-    <li>
-    <a href="account-profile-setting.html">
-    <i class="lni-cog"></i>
-    <span>Profile Settings</span>
-    </a>
-    </li>
-    <li>
-    <a class="active" href="account-myads.html">
-    <i class="lni-layers"></i>
-    <span>My Ads</span>
-    </a>
-    </li>
-    <li>
-    <a href="offermessages.html">
-    <i class="lni-envelope"></i>
-    <span>Offers/Messages</span>
-    </a>
-    </li>
-    <li>
-    <a href="payments.html">
-    <i class="lni-wallet"></i>
-    <span>Payments</span>
-    </a>
-    </li>
-    <li>
-    <a href="account-favourite-ads.html">
-    <i class="lni-heart"></i>
-    <span>My Favourites</span>
-    </a>
-    </li>
-    <li>
-    <a href="privacy-setting.html">
-    <i class="lni-star"></i>
-    <span>Privacy Settings</span>
-    </a>
-    </li>
-    <li>
-    <a href="#">
-    <i class="lni-enter"></i>
-    <span>Logout</span>
-    </a>
-    </li>
-    </ul>
-    </nav>
-    </div>
-    <div class="widget">
-    <h4 class="widget-title">Advertisement</h4>
-    <div class="add-box">
-    <img class="img-fluid" src="assets/img/img1.jpg" alt="">
-    </div>
-    </div>
-    </aside>
-    </div>
-     <div class="col-sm-12 col-md-8 col-lg-9">
-    <div class="page-content">
-    <div class="inner-box">
-    <div class="dashboard-box">
-    <h2 class="dashbord-title">My Ads</h2>
-    </div>
-    <div class="dashboard-wrapper">
-    <nav class="nav-table">
-    <ul>
-    <li class="active"><a href="#">All Ads (42)</a></li>
-    <li><a href="#">Published (88)</a></li>
-    <li><a href="#">Featured (12)</a></li>
-    <li><a href="#">Sold (02)</a></li>
-    <li><a href="#">Active (42)</a></li>
-    <li><a href="#">Expired (01)</a></li>
-    </ul>
-    </nav>
-    <table class="table table-responsive dashboardtable tablemyads">
-    <thead>
-    <tr>
-    <th>
-    <div class="custom-control custom-checkbox">
-    <input type="checkbox" class="custom-control-input" id="checkedall">
-    <label class="custom-control-label" for="checkedall"></label>
-    </div>
-    </th>
-    <th>Photo</th>
-    <th>Title</th>
-    <th>Category</th>
-    <th>Ad Status</th>
-    <th>Price</th>
-    <th>Action</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr data-category="active">
-    <td>
-    <div class="custom-control custom-checkbox">
-    <input type="checkbox" class="custom-control-input" id="adone">
-    <label class="custom-control-label" for="adone"></label>
-    </div>
-    </td>
-    <td class="photo"><img class="img-fluid" src="assets/img/product/img1.jpg" alt=""></td>
-    <td data-title="Title">
-    <h3>HP Laptop 6560b core i3 3nd generation</h3>
-    <span>Ad ID: ng3D5hAMHPajQrM</span>
-    </td>
-    <td data-title="Category"><span class="adcategories">Laptops & PCs</span></td>
-    <td data-title="Ad Status"><span class="adstatus adstatusactive">active</span></td>
-    <td data-title="Price">
-    <h3>139$</h3>
-    </td>
-    <td data-title="Action">
-    <div class="btns-actions">
-    <a class="btn-action btn-view" href="#"><i class="lni-eye"></i></a>
-    <a class="btn-action btn-edit" href="#"><i class="lni-pencil"></i></a>
-    <a class="btn-action btn-delete" href="#"><i class="lni-trash"></i></a>
-    </div>
-    </td>
-    </tr>
-    <tr data-category="active">
-    <td>
-    <div class="custom-control custom-checkbox">
-    <input type="checkbox" class="custom-control-input" id="adtwo">
-    <label class="custom-control-label" for="adtwo"></label>
-    </div>
-    </td>
-    <td class="photo"><img class="img-fluid" src="assets/img/product/img2.jpg" alt=""></td>
-    <td data-title="Title">
-    <h3>Jvc Haebr80b In-ear Sports Headphones</h3>
-    <span>Ad ID: ng3D5hAMHPajQrM</span>
-    </td>
-    <td data-title="Category">Electronics</td>
-    <td data-title="Ad Status"><span class="adstatus adstatusactive">Active</span></td>
-    <td data-title="Price">
-    <h3>$189</h3>
-    </td>
-    <td data-title="Action">
-    <div class="btns-actions">
-    <a class="btn-action btn-view" href="#"><i class="lni-eye"></i></a>
-    <a class="btn-action btn-edit" href="#"><i class="lni-pencil"></i></a>
-    <a class="btn-action btn-delete" href="#"><i class="lni-trash"></i></a>
-    </div>
-    </td>
-    </tr>
-    <tr data-category="inactive">
-    <td>
-    <div class="custom-control custom-checkbox">
-    <input type="checkbox" class="custom-control-input" id="adthree">
-    <label class="custom-control-label" for="adthree"></label>
-    </div>
-    </td>
-    <td class="photo"><img class="img-fluid" src="assets/img/product/img3.jpg" alt=""></td>
-    <td data-title="Title">
-    <h3>Furniture Straps 4-Pack, TV Anti-Tip Metal Wall </h3>
-    <span>Ad ID: ng3D5hAMHPajQrM</span>
-    </td>
-    <td data-title="Category">Real Estate</td>
-    <td>
-    <span class="adstatus adstatusinactive">Inactive</span>
-    </td>
-    <td data-title="Price">
-    <h3>$69</h3>
-    </td>
-    <td data-title="Action">
-    <div class="btns-actions">
-    <a class="btn-action btn-view" href="#"><i class="lni-eye"></i></a>
-    <a class="btn-action btn-edit" href="#"><i class="lni-pencil"></i></a>
-    <a class="btn-action btn-delete" href="#"><i class="lni-trash"></i></a>
-    </div>
-    </td>
-    </tr>
-    <tr data-category="sold">
-    <td>
-    <div class="custom-control custom-checkbox">
-    <input type="checkbox" class="custom-control-input" id="adfour">
-    <label class="custom-control-label" for="adfour"></label>
-    </div>
-    </td>
-    <td class="photo"><img class="img-fluid" src="assets/img/product/img4.jpg" alt=""></td>
-    <td data-title="Title">
-    <h3>Apple iPhone X, Fully Unlocked 5.8", 64 GB - Black</h3>
-    <span>Ad ID: ng3D5hAMHPajQrM</span>
-    </td>
-    <td data-title="Category">Mobile</td>
-    <td data-title="Ad Status"><span class="adstatus adstatussold">Sold</span></td>
-    <td data-title="Price">
-    <h3>$89</h3>
-    </td>
-    <td data-title="Action">
-    <div class="btns-actions">
-    <a class="btn-action btn-view" href="#"><i class="lni-eye"></i></a>
-    <a class="btn-action btn-delete" href="#"><i class="lni-trash"></i></a>
-    </div>
-    </td>
-    </tr>
-    <tr data-category="active">
-    <td>
-    <div class="custom-control custom-checkbox">
-    <input type="checkbox" class="custom-control-input" id="adfive">
-    <label class="custom-control-label" for="adfive"></label>
-    </div>
-    </td>
-    <td class="photo"><img class="img-fluid" src="assets/img/product/img5.jpg" alt=""></td>
-    <td data-title="Title">
-    <h3>Apple Macbook Pro 13 Inch with/without Touch Bar</h3>
-    <span>Ad ID: ng3D5hAMHPajQrM</span>
-    </td>
-    <td data-title="Category">Apple</td>
-    <td data-title="Ad Status"><span class="adstatus adstatusactive">Active</span></td>
-    <td data-title="Price">
-    <h3>$289</h3>
-    </td>
-    <td data-title="Action">
-    <div class="btns-actions">
-    <a class="btn-action btn-view" href="#"><i class="lni-eye"></i></a>
-    <a class="btn-action btn-edit" href="#"><i class="lni-pencil"></i></a>
-    <a class="btn-action btn-delete" href="#"><i class="lni-trash"></i></a>
-    </div>
-    </td>
-    </tr>
-    <tr data-category="sold">
-    <td>
-    <div class="custom-control custom-checkbox">
-    <input type="checkbox" class="custom-control-input" id="adsix">
-    <label class="custom-control-label" for="adsix"></label>
-    </div>
-    </td>
-    <td class="photo"><img class="img-fluid" src="assets/img/product/img6.jpg" alt=""></td>
-    <td data-title="Title">
-    <h3>Apple MQDT2CL/A 10.5-Inch 64GB Wi-Fi iPad Pro</h3>
-    <span>Ad ID: ng3D5hAMHPajQrM</span>
-    </td>
-    <td data-title="Category">Apple iPad</td>
-    <td data-title="Ad Status"><span class="adstatus adstatussold">Sold</span></td>
-    <td data-title="Price">
-    <h3>$159</h3>
-    </td>
-    <td data-title="Action">
-    <div class="btns-actions">
-    <a class="btn-action btn-view" href="#"><i class="lni-eye"></i></a>
-    <a class="btn-action btn-delete" href="#"><i class="lni-trash"></i></a>
-    </div>
-    </td>
-    </tr>
-    <tr data-category="expired">
-    <td>
-    <div class="custom-control custom-checkbox">
-    <input type="checkbox" class="custom-control-input" id="adseven">
-    <label class="custom-control-label" for="adseven"></label>
-    </div>
-    </td>
-    <td class="photo"><img class="img-fluid" src="assets/img/product/img7.jpg" alt=""></td>
-    <td data-title="Title">
-    <h3>Essential Phone 8GB Unlocked with Dual Camera</h3>
-    <span>Ad ID: ng3D5hAMHPajQrM</span>
-    </td>
-    <td data-title="Category">Mobile</td>
-    <td data-title="Ad Status"><span class="adstatus adstatusexpired">Expired</span></td>
-    <td data-title="Price">
-    <h3>$89</h3>
-    </td>
-    <td data-title="Action">
-    <div class="btns-actions">
-    <a class="btn-action btn-view" href="#"><i class="lni-eye"></i></a>
-    <a class="btn-action btn-edit" href="#"><i class="lni-pencil"></i></a>
-    <a class="btn-action btn-delete" href="#"><i class="lni-trash"></i></a>
-    </div>
-    </td>
-    </tr>
-    <tr data-category="inactive">
-    <td>
-     <div class="custom-control custom-checkbox">
-    <input type="checkbox" class="custom-control-input" id="adeight">
-    <label class="custom-control-label" for="adeight"></label>
-    </div>
-    </td>
-    <td class="photo"><img class="img-fluid" src="assets/img/product/img8.jpg" alt=""></td>
-    <td data-title="Title">
-    <h3>LG Nexus 5x LG-H791 32GB GSM Smartphone</h3>
-    <span>Ad ID: ng3D5hAMHPajQrM</span>
-    </td>
-    <td data-title="Category">Mobile</td>
-    <td>
-    <span class="adstatus adstatusinactive">Inactive</span>
-    </td>
-    <td data-title="Price">
-    <h3>$59</h3>
-    </td>
-    <td data-title="Action">
-    <div class="btns-actions">
-    <a class="btn-action btn-view" href="#"><i class="lni-eye"></i></a>
-    <a class="btn-action btn-edit" href="#"><i class="lni-pencil"></i></a>
-    <a class="btn-action btn-delete" href="#"><i class="lni-trash"></i></a>
-    </div>
-    </td>
-    </tr>
-    <tr data-category="expired">
-    <td>
-    <div class="custom-control custom-checkbox">
-    <input type="checkbox" class="custom-control-input" id="adnine">
-    <label class="custom-control-label" for="adnine"></label>
-    </div>
-    </td>
-    <td class="photo"><img class="img-fluid" src="assets/img/product/img9.jpg" alt=""></td>
-    <td data-title="Title">
-    <h3>Samsung Galaxy G550T On5 GSM Unlocked Smartphone</h3>
-    <span>Ad ID: ng3D5hAMHPajQrM</span>
-    </td>
-    <td data-title="Category">Mobile</td>
-    <td data-title="Ad Status"><span class="adstatus adstatusexpired">Expired</span></td>
-    <td data-title="Price">
-    <h3>$129</h3>
-    </td>
-    <td data-title="Action">
-    <div class="btns-actions">
-    <a class="btn-action btn-view" href="#"><i class="lni-eye"></i></a>
-    <a class="btn-action btn-edit" href="#"><i class="lni-pencil"></i></a>
-    <a class="btn-action btn-delete" href="#"><i class="lni-trash"></i></a>
-    </div>
-    </td>
-    </tr>
-    <tr data-category="deleted">
-    <td>
-    <div class="custom-control custom-checkbox">
-    <input type="checkbox" class="custom-control-input" id="adten">
-    <label class="custom-control-label" for="adten"></label>
-    </div>
-    </td>
-    <td class="photo"><img class="img-fluid" src="assets/img/product/img10.jpg" alt=""></td>
-    <td data-title="Title">
-    <h3>Apple iMac Pro 27" All-in-One Desktop, Space Gray</h3>
-    <span>Ad ID: ng3D5hAMHPajQrM</span>
-    </td>
-    <td data-title="Category">Apple iMac</td>
-    <td data-title="Ad Status"><span class="adstatus adstatusdeleted">Deleted</span></td>
-    <td data-title="Price">
-    <h3>$389</h3>
-    </td>
-    <td data-title="Action">
-     <div class="btns-actions">
-    <a class="btn-action btn-view" href="#"><i class="lni-eye"></i></a>
-    <a class="btn-action btn-edit" href="#"><i class="lni-pencil"></i></a>
-    <a class="btn-action btn-delete" href="#"><i class="lni-trash"></i></a>
-    </div>
-    </td>
-    </tr>
-    </tbody>
-    </table>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
-    </div>
+    <script src="{{ asset('assets/plugins/summernote/dist/summernote-bs4.min.js') }}"></script>
 
 
+    <script>
+        $('#summernote').summernote({
+            height: 250, // set editor height
+            minHeight: null, // set minimum height of editor
+            maxHeight: null, // set maximum height of editor
+            focus: false, // set focus to editable area after initializing summernote
+            tabsize: 2
+        });
+    </script>
+
+    <script>
+        // $(document).ready(function () {
+
+
+        $("#addForm").on("submit", function (e) {
+            e.preventDefault(),
+                $(".loadoverlay").fadeIn();
+            $.ajax({
+                url: "{{route('uploadPost')}}",
+                method: "post",
+                data: new FormData(this),
+                contentType: !1,
+                cache: !1,
+                processData: !1,
+                dataType: "json",
+                success: function (data) {
+                    $(".loadoverlay").fadeOut();
+                    var html = "";
+                    if (data.errors) {
+                        html =
+                            '<div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" \
+                        data-dismiss="alert">&times;</button><div class="alert-icon"><i class="icon-close"></i></div><div class="alert-message">\
+                        <span><strong>Errors!</strong></span><br>';
+                        for (
+                            var count = 0;
+                            count < data.errors.length;
+                            count++
+                        ) {
+                            html +=
+                                "<span>" +
+                                data.errors[count] +
+                                "</span><br>";
+                            Lobibox.notify("error", {
+                                pauseDelayOnHover: true,
+                                continueDelayOnInactiveTab: false,
+                                position: "top right",
+                                icon: "fa fa-times-circle",
+                                msg: data.errors[count],
+                            });
+                        }
+                        html += "</div></div>";
+                    }
+                    if (data.error) {
+                        html =
+                            '<div class="alert alert-warning">' +
+                            data.warning +
+                            "</div>";
+                        Lobibox.notify("error", {
+                            pauseDelayOnHover: true,
+                            continueDelayOnInactiveTab: false,
+                            position: "top right",
+                            icon: "fa fa-times-circle",
+                            msg: data.warning,
+                        });
+                    }
+                    if (data.success) {
+                        html =
+                            '<div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" \
+                        data-dismiss="alert">&times;</button><div class="alert-icon"><i class="icon-check"></i></div><div class="alert-message">\
+                        <span><strong>Success!</strong> ' +
+                            data.success +
+                            "</span></div></div>";
+
+                        $("#form_results").html(html);
+                        $('#addForm')[0].reset();
+                        Lobibox.notify("success", {
+                            pauseDelayOnHover: true,
+                            continueDelayOnInactiveTab: false,
+                            position: "top right",
+                            icon: "fa fa-check-circle",
+                            msg: data.success,
+                        });
+                        setTimeout(function () {
+                            $("#form_results").html("");
+
+                        }, 2000);
+                    }
+
+                    $("#form_results").html(html);
+                    setTimeout(function () {
+                        $("#form_results").html("");
+                    }, 2000);
+
+                },
+                error: function (data) {
+                    $(".loadoverlay").fadeOut();
+                    console.log(data);
+                    Lobibox.notify("error", {
+                        pauseDelayOnHover: true,
+                        continueDelayOnInactiveTab: false,
+                        position: "top right",
+                        icon: "fa fa-times-circle",
+                        msg: "Something went wrong" + data,
+                    });
+
+                },
+            });
+        });
+
+
+        // });
+
+
+    </script>
 
 @endsection

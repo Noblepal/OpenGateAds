@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Traits\UsesUUID;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Iatstuti\Database\Support\CascadeSoftDeletes;
-use Models\AdReview;
-use Models\Category;
+use Dyrynda\Database\Support\CascadeSoftDeletes;
+use Overtrue\LaravelFavorite\Traits\Favoriteable;
+
 class Ad extends Model
 {
-    use HasFactory,UsesUUID,SoftDeletes,CascadeSoftDeletes;
-    protected $cascadeDeletes = ['reviews'];
+    use HasFactory,UsesUUID,SoftDeletes,CascadeSoftDeletes,Favoriteable;
+    protected $cascadeDeletes = ['reviews','photos'];
 
     public function reviews()
     {
@@ -23,6 +23,15 @@ class Ad extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function photos()
+    {
+        return $this->hasMany(AdPhoto::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
 }
