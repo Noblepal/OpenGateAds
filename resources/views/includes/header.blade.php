@@ -24,94 +24,118 @@
                             </div>
                         </div>
                     @endif
-                    @endif
+                @endif
 
+            </div>
+        </div>
+    </div>
+
+
+    <nav class="navbar navbar-expand-lg bg-white fixed-top scrolling-navbar">
+        <div class="container">
+
+            <div class="navbar-header">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar"
+                        aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="lni-menu"></span>
+                    <span class="lni-menu"></span>
+                    <span class="lni-menu"></span>
+                </button>
+                <a href="/" class="navbar-brand"><img src="{{ asset('assets/img/logo-small.png') }}" alt=""></a>
+            </div>
+            <div class="collapse navbar-collapse" id="main-navbar">
+                <ul class="navbar-nav mr-auto w-100 justify-content-center">
+                    <li class="nav-item {{ Route::currentRouteNamed('index') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{route('index')}}">
+                            Home
+                        </a>
+                    </li>
+                    <li class="nav-item {{ Route::currentRouteNamed('categories') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{route('categories')}}">
+                            Categories
+                        </a>
+                    </li>
+                    <li class="nav-item {{ Route::currentRouteNamed('listings') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{route('listings')}}">Listings</a>
+                    </li>
+
+                    <li class="nav-item {{ Route::currentRouteNamed('contact') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{route('contact')}}">
+                            Contact
+                        </a>
+                    </li>
+                    <li class="nav-item {{ Route::currentRouteNamed('about') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{route('about')}}">
+                            About
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"
+                           aria-expanded="false">
+                           Account
+                        </a>
+                        <div class="dropdown-menu">
+                            @if(Auth::check())
+                                <a class="dropdown-item" href="{{route('dashboard')}}"><i class="lni-user">
+                                    </i> {{Auth::user()->fname.' '.Auth::user()->lname}}</a>
+                            @else
+                                Login
+                            @endif
+                            <a class="dropdown-item" href="{{route('dashboard')}}">Dashboard</a>
+                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();">Logout</a>
+                        </div>
+                    </li>
+                </ul>
+                <div class="post-btn">
+                    <a class="btn btn-common" href="/ad-post"><i class="lni-pencil-alt"></i> Post an Ad</a>
                 </div>
             </div>
         </div>
 
-
-        <nav class="navbar navbar-expand-lg bg-white fixed-top scrolling-navbar">
-            <div class="container">
-
-                <div class="navbar-header">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar"
-                        aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                        <span class="lni-menu"></span>
-                        <span class="lni-menu"></span>
-                        <span class="lni-menu"></span>
-                    </button>
-                    <a href="/" class="navbar-brand"><img src="{{ asset('assets/img/logo-small.png') }}" alt=""></a>
-                </div>
-                <div class="collapse navbar-collapse" id="main-navbar">
-                    <ul class="navbar-nav mr-auto w-100 justify-content-center">
-                        <li class="nav-item">
-                            <a class="nav-link" href="/">
-                                Home
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/categories">
-                                Categories
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/listings">Listings</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="/contact">
-                                Contact
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="post-btn">
-                        <a class="btn btn-common" href="/ad-post"><i class="lni-pencil-alt"></i> Post an Ad</a>
-                    </div>
-                </div>
+        <ul class="mobile-menu">
+            <div class="post-btn">
+                <a class="btn btn-common" href="/ad-post"><i class="lni-pencil-alt"></i> Post an Ad</a>
             </div>
+            <li><a href="{{route('index')}}">Home</a></li>
+            <li>
+                <a href="{{route('categories')}}">Categories</a>
+            </li>
+            <li>
+                <a href="{{route('listings')}}">Listings</a>
+            </li>
 
-            <ul class="mobile-menu">
-                <div class="post-btn">
-                    <a class="btn btn-common" href="/ad-post"><i class="lni-pencil-alt"></i> Post an Ad</a>
-                </div>
-                <li><a href="/">Home</a></li>
-                <li>
-                    <a href="/categories">Categories</a>
-                </li>
-                <li>
-                    <a href="/listings">Listings</a>
-                </li>
+            <li>
+                <a href="{{route('contact')}}">Contact Us</a>
+            </li>
+            <li>
+                <a href="{{route('about')}}">About Us</a>
+            </li>
 
-                <li>
-                    <a href="/contact">Contact Us</a>
-                </li>
-
-                @if (Route::has('login'))
-                    <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-                        @auth
-                            {{-- Todo --}}
-                        @else
+            @if (Route::has('login'))
+                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+                    @auth
+                        {{-- Todo --}}
+                    @else
+                        <li>
+                            <a href="{{ route('login') }}"><i class="lni-lock"></i> Log In</a>
+                        </li>
+                        @if (Route::has('register'))
                             <li>
-                                <a href="{{ route('login') }}"><i class="lni-lock"></i> Log In</a>
+                                <a href="{{ route('register') }}"><i class="lni-pencil"></i> Register</a>
                             </li>
-                            @if (Route::has('register'))
-                                <li>
-                                    <a href="{{ route('register') }}"><i class="lni-pencil"></i> Register</a>
-                                </li>
-                            @endif
+                        @endif
 
 
 
                     @endif
-                    </div>
-                    @endif
+                </div>
+            @endif
 
 
+        </ul>
 
-                </ul>
 
-
-            </nav>
-        </header>
+    </nav>
+</header>

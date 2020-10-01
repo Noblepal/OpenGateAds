@@ -4,8 +4,8 @@
             <div class="user">
                 <figure>
                     <a href="#"><img
-                            src=" {{$user->profile_pic == null ? asset('assets/img/author/img1.jpg') : $user->profile_pic }}
-                                    " alt="profiel pic"></a>
+                            src=" {{$user->profile_pic == null ? asset('assets/img/author/img1.png') : url('/ProfilePics').'/'.$user->profile_pic }}
+                                    " alt="profile pic"></a>
                 </figure>
                 <div class="usercontent">
                     <h3>Hello {{$user->fname." ".$user->lname}}!</h3>
@@ -28,8 +28,8 @@
                         </a>
                     </li>
                     <li>
-                        <a class="{{ Route::currentRouteNamed('updateProfile') ? 'active' : '' }}"
-                           href="{{route('updateProfile')}}">
+                        <a class="{{ Route::currentRouteNamed('profileSettings') ? 'active' : '' }}"
+                           href="{{route('profileSettings')}}">
                             <i class="lni-cog"></i>
                             <span>Profile Settings</span>
                         </a>
@@ -46,13 +46,6 @@
                            href="{{route('favouriteAds')}}">
                             <i class="lni-heart"></i>
                             <span>My Favourites</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="{{ Route::currentRouteNamed('cars') ? 'active' : '' }}"
-                           href="{{route('settings')}}">
-                            <i class="lni-star"></i>
-                            <span>Privacy Settings</span>
                         </a>
                     </li>
                     <li>
