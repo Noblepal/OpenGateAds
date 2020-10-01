@@ -35,7 +35,7 @@
                                     <div class="row">
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
                                             <div class="dashboardbox">
-                                                <div class="icon"><i class="lni-write"></i></div>
+                                                <div class="icon no-display "><i class="lni-write"></i></div>
                                                 <div class="contentbox">
                                                     <h2><a href="#">Total Ad Posted</a></h2>
                                                     <h3>{{$total_ads}} Ad Posted</h3>
@@ -44,7 +44,7 @@
                                         </div>
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
                                             <div class="dashboardbox">
-                                                <div class="icon"><i class="lni-add-files"></i></div>
+                                                <div class="icon no-display "><i class="lni-add-files"></i></div>
                                                 <div class="contentbox">
                                                     <h2><a href="#">Featured Ads</a></h2>
                                                     <h3>{{$total_featured_ads}} Ad Posted</h3>
@@ -53,7 +53,7 @@
                                         </div>
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4">
                                             <div class="dashboardbox">
-                                                <div class="icon"><i class="lni-heart-filled"></i></div>
+                                                <div class="icon no-display "><i class="lni-heart-filled"></i></div>
                                                 <div class="contentbox">
                                                     <h2><a href="#">Favorite Ads</a></h2>
                                                     <h3>{{$total_fav_ads}}  Favorites Ads</h3>

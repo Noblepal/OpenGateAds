@@ -32,15 +32,15 @@
                         <h3 class="block-title">Contact Info</h3>
                         <ul class="contact-footer">
                             <li>
-                                <strong><i class="lni-phone"></i></strong><span>+254123456789 <br> +254123456789</span>
+                                <strong>{{-- <i class="lni-phone"> --}}</i></strong><span>+254123456789 <br> +254123456789</span>
                             </li>
                             <li>
-                                <strong><i class="lni-envelope"></i></strong><span><a
+                                <strong>{{-- <i class="lni-envelope"> --}}</i></strong><span><a
                                         href="mailto:info@mobharvesters.net">info@mobharvesters.net</a>
                                     <br> <a href="mailto:support@mobharvesters.net">support@mobharvesters.net</a></span>
                             </li>
                             <li>
-                                <strong><i class="lni-map-marker"></i></strong><span><a href="#">Ruaraka,<br>
+                                <strong>{{-- <i class="lni-map-marker"> --}}</i></strong><span><a href="#">Ruaraka,<br>
                                         Nairobi</a></span>
                             </li>
                         </ul>

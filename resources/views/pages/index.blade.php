@@ -15,33 +15,36 @@
                                 <form class="search-form">
                                     <div class="form-group">
                                         <input type="text" name="customword" class="form-control"
-                                               placeholder="What are you looking for?">
+                                            placeholder="What are you looking for?">
                                     </div>
                                     <div class="form-group inputwithicon">
                                         <div class="select">
                                             <select>
                                                 <option value="" selected disabled>Locations</option>
-                                                @foreach($counties as $county)
-                                                    <option value="{{$county->name}}">{{$county->name}}</option>
+                                                @foreach ($counties as $county)
+                                                    <option value="{{ $county->name }}">{{ $county->name }}</option>
                                                 @endforeach
 
                                             </select>
                                         </div>
-                                        <i class="lni-target"></i>
+                                        {{-- <i class="lni-target"></i>
+                                        --}}
                                     </div>
                                     <div class="form-group inputwithicon">
                                         <div class="select">
                                             <select>
                                                 <option value="" selected disabled>Select Category</option>
-                                                @foreach($categories as $category)
-                                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                                @foreach ($categories as $category)
+                                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
                                                 @endforeach
 
                                             </select>
                                         </div>
-                                        <i class="lni-menu"></i>
+                                        {{-- <i class="lni-menu"></i>
+                                        --}}
                                     </div>
-                                    <button class="btn btn-common" type="button"><i class="lni-search"></i> Search
+                                    <button class="btn btn-common" type="button">{{-- <i
+                                            class="lni-search"> --}}</i> Search
                                         Now
                                     </button>
                                 </form>
@@ -58,16 +61,18 @@
             <div class="row justify-content-center">
                 <div class="col-lg-10 col-md-12 col-xs-12">
                     <div id="categories-icon-slider" class="categories-wrapper owl-carousel owl-theme">
-                        @foreach($categories as $category)
+                        @foreach ($categories as $category)
                             <div class="item">
-                                <a href="{{route('categoryListings',$category->id)}}">
+                                <a href="{{ route('categoryListings', $category->id) }}">
                                     <div class="category-icon-item">
                                         <div class="icon-box">
-                                            <div class="icon">
-{{--                                                <img src="{{ asset('assets/img/category/img-1.png') }}" alt="">--}}
-                                                <span><i class="{{$category->icon_name}}"></i></span>
+                                            <div class="icon no-display ">
+                                                {{-- <img
+                                                    src="{{ asset('assets/img/category/img-1.png') }}"
+                                                    alt="">--}}
+                                                <span><i class="{{ $category->icon_name }}"></i></span>
                                             </div>
-                                            <h4>{{$category->name}}</h4>
+                                            <h4>{{ $category->name }}</h4>
                                         </div>
                                     </div>
                                 </a>
@@ -85,7 +90,7 @@
         <div class="container">
             <h1 class="section-title">Latest Products</h1>
             <div class="row">
-               @include('includes.list_item')
+                @include('includes.list_item')
             </div>
         </div>
     </section>
@@ -97,14 +102,16 @@
                 <div class="col-md-12 wow fadeIn" data-wow-delay="0.5s">
                     <h3 class="section-title">Featured Products</h3>
                     <div id="new-products" class="owl-carousel owl-theme">
-                        @foreach($featured_ads as $ad)
+                        @foreach ($featured_ads as $ad)
 
                             <div class="item">
                                 <div class="product-item">
                                     <div class="carousel-thumb">
                                         <img class="img-fluid"
-                                             src="{{url('/openGateAds').'/'.$ad->photos->where('type','main_image')->pluck('image_path')->first()}}"
-                                             alt="ad photo">
+                                            src="{{ url('/openGateAds') .
+                                                     '/' .
+                                                     $ad->photos->where('type', 'main_image')->pluck('image_path')->first() }}"
+                                            alt="ad photo">
                                         <div class="overlay">
                                             <div>
                                                 <a class="btn btn-common" href="#">View Details</a>
@@ -113,43 +120,44 @@
                                         <div class="btn-product bg-sale">
                                             <a>Featured</a>
                                         </div>
-                                        <span class="price">Ksh {{number_format($ad->price, 0)}}</span>
+                                        <span class="price">Ksh {{ number_format($ad->price, 0) }}</span>
                                     </div>
                                     <div class="product-content">
-                                        <h3 class="product-title"><a href="#">{{$ad->title}}</a></h3>
-                                        <a href="{{route('categoryListings',$ad->category->id)}}"><span>{{$ad->category->name}}</span></a>
-                                        @if(Auth::check())
-                                            @if($user->hasFavorited($ad))
-                                                <div class="icon favorite" data-id="{{ $ad->id }}">
+                                        <h3 class="product-title"><a href="#">{{ $ad->title }}</a></h3>
+                                        <a
+                                            href="{{ route('categoryListings', $ad->category->id) }}"><span>{{ $ad->category->name }}</span></a>
+                                        @if (Auth::check())
+                                            @if ($user->hasFavorited($ad))
+                                                <div class="icon no-display favorite" data-id="{{ $ad->id }}">
                                                     <span><i class="lni-heart"></i></span>
                                                 </div>
                                             @else
-                                                <div class="icon not-favorite" data-id="{{ $ad->id }}">
+                                                <div class="icon no-display not-favorite" data-id="{{ $ad->id }}">
                                                     <span><i class="lni-heart"></i></span>
                                                 </div>
                                             @endif
                                         @else
-                                            <div class="icon require-login">
+                                            <div class="icon no-display require-login">
                                                 <span><i class="lni-heart"></i></span>
                                             </div>
                                         @endif
                                         <div class="card-text">
                                             <div class="float-left">
-                                            <span class="icon-wrap">
-                                                <i class="lni-star-filled"></i>
-                                                <i class="lni-star-filled"></i>
-                                                <i class="lni-star-filled"></i>
-                                                <i class="lni-star-filled"></i>
-                                                <i class="lni-star-filled"></i>
-                                                <i class="lni-star"></i>
-                                            </span>
+                                                <span class="icon-wrap">
+                                                    <i class="lni-star-filled"></i>
+                                                    <i class="lni-star-filled"></i>
+                                                    <i class="lni-star-filled"></i>
+                                                    <i class="lni-star-filled"></i>
+                                                    <i class="lni-star-filled"></i>
+                                                    <i class="lni-star"></i>
+                                                </span>
                                                 <span class="count-review">
-                                                (12 Review)
-                                            </span>
+                                                    (12 Review)
+                                                </span>
                                             </div>
                                             <div class="float-right">
-                                                <a class="address" href="{{route('locationListings',$ad->county)}}"><i
-                                                        class="lni-map-marker"></i> {{$ad->county}}</a>
+                                                <a class="address" href="{{ route('locationListings', $ad->county) }}">{{-- <i
+                                                        class="lni-map-marker"></i> --}} - {{ $ad->county }}</a>
                                             </div>
                                         </div>
                                     </div>
@@ -172,24 +180,24 @@
                 </div>
                 <div class="col-lg-4 col-md-4 col-xs-12">
                     <div class="works-item">
-                        <div class="icon-box">
-                            <i class="lni-users"></i>
+                        <div class="icon-box my-number">
+                            1{{-- <i class="lni-users"></i> --}}
                         </div>
                         <p>Create an Account</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-xs-12">
                     <div class="works-item">
-                        <div class="icon-box">
-                            <i class="lni-bookmark-alt"></i>
+                        <div class="icon-box my-number">
+                            2{{-- <i class="lni-bookmark-alt"></i> --}}
                         </div>
                         <p>Post Free Ad</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-4 col-xs-12">
                     <div class="works-item">
-                        <div class="icon-box">
-                            <i class="lni-thumbs-up"></i>
+                        <div class="icon-box my-number">
+                            3{{-- <i class="lni-thumbs-up"></i> --}}
                         </div>
                         <p>Deal Done</p>
                     </div>

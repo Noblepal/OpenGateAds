@@ -26,13 +26,13 @@
                 <h4><a href="{{route('adDetails',$ad->id)}}">{{$ad->title}}</a></h4>
                 <div class="meta-tag">
                                 <span>
-                                    <a href="{{route('sellerListings',$ad->user->id)}}"><i class="lni-user"></i>{{$ad->user->fname.' '.$ad->user->lname}}</a>
+                                    <a href="{{route('sellerListings',$ad->user->id)}}">{{-- <i class="lni-menu-circle"> --}}</i>{{$ad->user->fname.' '.$ad->user->lname}}</a>
                                 </span>
                     <span>
-                                    <a href="{{route('locationListings',$ad->county)}}"><i class="lni-map-marker"></i> {{$ad->county}}</a>
+                                    <a href="{{route('locationListings',$ad->county)}}">-{{-- <i class="lni-map-marker"> --}}</i> {{$ad->county}}</a>
                                 </span>
                     <span>
-                                    <a href="{{route('categoryListings',$ad->category->id)}}"><i class="lni-tag"></i> {{$ad->category->name}}</a>
+                                    <a href="{{route('categoryListings',$ad->category->id)}}">-{{-- <i class="lni-tag"> --}}</i> {{$ad->category->name}}</a>
                                 </span>
                 </div>
                 <p class="dsc">{!! \Illuminate\Support\Str::limit($ad->description, 150, $end='...') !!}</p>

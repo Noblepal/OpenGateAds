@@ -25,7 +25,7 @@
                 <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
                     <a href="{{route('categoryListings',$category->id)}}">
                         <div class="icon-box">
-                            <div class="icon">
+                            <div class="icon no-display">
                                 <i class="{{$category->icon_name}}"></i>
                             </div>
                             <h4>{{$category->name}}</h4>

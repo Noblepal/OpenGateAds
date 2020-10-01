@@ -44,8 +44,8 @@
                         <div class="ads-details-info">
                             <h2>{{$ad->title}}</h2>
                             <div class="details-meta">
-                                <span><a href="#"><i class="lni-alarm-clock"></i> {{$ad->created_at->format('d M, yy')}}</a></span>
-                                <span><a href="#"><i class="lni-map-marker"></i> {{$ad->county}}</a></span>
+                                <span><a href="#">Posted: {{-- <i class="lni-alarm-clock"> --}}</i> {{$ad->created_at->format('d M, yy')}}</a></span>
+                                <span><a href="#">Location: {{-- <i class="lni-map-marker"> --}}</i> {{$ad->county}}</a></span>
                             </div>
                             <p class="mb-4">{!!$ad->description !!}</h4>
                         </div>
@@ -53,7 +53,7 @@
                             <div class="float-left">
                                 <ul class="advertisement">
                                     <li>
-                                        <p><strong><i class="lni-folder"></i> Categories:</strong> <a
+                                        <p><strong>{{--<i class="lni-folder"></i> --}} Category: </strong> <a
                                                 href="#">{{$ad->category->name}}</a>
                                         </p>
                                     </li>
@@ -92,7 +92,7 @@
                                     </div>
                                     <div class="agent-details">
                                         <h3><a href="#">{{$ad->user->fname.' '.$ad->user->lname}}</a></h3>
-                                        <span><i class="lni-phone-handset"></i>{{$ad->user->phone}}</span>
+                                        <span>Phone: {{-- <i class="lni-phone-handset"> --}}</i>{{$ad->user->phone}}</span>
                                     </div>
                                 </div>
                                 <input type="text" class="form-control" placeholder="Your Email">
@@ -116,13 +116,13 @@
                                         <h4><a href="{{route('adDetails',$ad->id)}}">{{$ad->title}}</a></h4>
                                         <div class="meta-tag">
                                             <span>
-                                            <a href="{{route('sellerListings',$ad->user->id)}}"><i class="lni-user"></i> {{$ad->user->fname.' '.$ad->user->lname}}</a>
+                                            <a href="{{route('sellerListings',$ad->user->id)}}">{{-- <i class="lni-user"></i> --}} {{$ad->user->fname.' '.$ad->user->lname}}</a>
                                             </span>
                                                                                     <span>
-                                            <a href="{{route('locationListings',$ad->county)}}"><i class="lni-map-marker"></i> {{$ad->county}}r</a>
+                                            <a href="{{route('locationListings',$ad->county)}}">- {{-- <i class="lni-map-marker"></i> --}} {{$ad->county}}r</a>
                                             </span>
                                                                                     <span>
-                                            <a href="{{route('categoryListings',$ad->category->id)}}"><i class="lni-tag"></i> {{$ad->category->name}}</a>
+                                            <a href="{{route('categoryListings',$ad->category->id)}}">- {{-- <i class="lni-tag"></i> --}} {{$ad->category->name}}</a>
                                             </span>
                                         </div>
                                         <h4 class="price">Ksh {{number_format($ad->price, 0)}}</h4>
@@ -139,34 +139,6 @@
 
         </div>
     </div>
-
-
-    <section class="subscribes section-padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <div class="subscribes-inner">
-                        <div class="icon">
-                            <i class="lni-pointer"></i>
-                        </div>
-                        <div class="sub-text">
-                            <h3>Subscribe to Newsletter</h3>
-                            <p>and receive new ads in inbox</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <form>
-                        <div class="subscribe">
-                            <input class="form-control" name="EMAIL" placeholder="Enter your Email" required=""
-                                   type="email">
-                            <button class="btn btn-common" type="submit">Subscribe</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
 
 
 @endsection
