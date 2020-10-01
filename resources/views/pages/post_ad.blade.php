@@ -6,10 +6,10 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="breadcrumb-wrapper">
-                        <h2 class="product-title">Post you Ads</h2>
+                        <h2 class="product-title">Post your Ad</h2>
                         <ol class="breadcrumb">
                             <li><a href="#">Home /</a></li>
-                            <li class="current">Post you Ads</li>
+                            <li class="current">Post your Ad</li>
                         </ol>
                     </div>
                 </div>
@@ -161,14 +161,14 @@
                     if (data.error) {
                         html =
                             '<div class="alert alert-warning">' +
-                            data.warning +
+                            data.error +
                             "</div>";
                         Lobibox.notify("error", {
                             pauseDelayOnHover: true,
                             continueDelayOnInactiveTab: false,
                             position: "top right",
                             icon: "fa fa-times-circle",
-                            msg: data.warning,
+                            msg: data.error,
                         });
                     }
                     if (data.success) {
@@ -195,9 +195,7 @@
                     }
 
                     $("#form_results").html(html);
-                    setTimeout(function () {
-                        $("#form_results").html("");
-                    }, 2000);
+
 
                 },
                 error: function (data) {
@@ -208,7 +206,7 @@
                         continueDelayOnInactiveTab: false,
                         position: "top right",
                         icon: "fa fa-times-circle",
-                        msg: "Something went wrong" + data,
+                        msg: "Something went wrong",
                     });
 
                 },

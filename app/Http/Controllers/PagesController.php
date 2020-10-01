@@ -6,8 +6,11 @@ use App\Models\Ad;
 use App\Models\AdPhoto;
 use App\Models\Category;
 use App\Models\County;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Image;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Validator;
 
@@ -24,9 +27,9 @@ class PagesController extends Controller
         $user = Auth::user();
         $counties = County::all();
         $categories = Category::all();
-        $featured_ads = Ad::where('is_featured',1)->where('is_Active',1)->orderBy('updated_at','DESC')->get();
-        $ads = Ad::Where('is_active',1)->orderBy('created_at','DESC')->paginate(6);
-        return view('pages.index',compact('user','counties','categories','featured_ads','ads'));
+        $featured_ads = Ad::where('is_featured', 1)->where('is_Active', 1)->orderBy('updated_at', 'DESC')->get();
+        $ads = Ad::Where('is_active', 1)->orderBy('created_at', 'DESC')->paginate(6);
+        return view('pages.index', compact('user', 'counties', 'categories', 'featured_ads', 'ads'));
     }
 
     public function maintenance()
@@ -37,17 +40,55 @@ class PagesController extends Controller
     public function dashboard()
     {
         $user = Auth::user();
-        $total_ads = Ad::where('user_id',$user->id)->count();
-//        $total_fav_ads = $user->favorites()->count();
-        $total_fav_ads = Ad::where('user_id',$user->id)->where('is_featured',1)->count();
-        $total_featured_ads = Ad::where('user_id',$user->id)->where('is_featured',1)->count();
-        return view('pages.dashboard',compact('user','total_ads','total_fav_ads','total_featured_ads'));
+        $total_ads = Ad::where('user_id', $user->id)->count();
+        $total_fav_ads = $user->getFavoriteItems(Ad::class)->where('is_active', 1)->count();
+        $total_featured_ads = Ad::where('user_id', $user->id)->where('is_featured', 1)->count();
+        $categories = Category::withCount('ads')->get();
+        return view('pages.dashboard', compact('user', 'total_ads', 'total_fav_ads', 'total_featured_ads', 'categories'));
     }
 
     public function categories()
     {
-        $header = false;
-        return view('pages.categories')->with('no_header', $header);
+        $categories = Category::withCount('ads')->get();
+        return view('pages.categories', compact('categories'));
+    }
+
+    public function listings()
+    {
+        $user = Auth::user();
+        $ads = Ad::where('is_active', 1)->orderby('created_At', 'DESC')->paginate(20);
+        $categories = Category::withCount('ads')->get();
+        $header = "all Ads";
+        return view('pages.listings', compact('user', 'ads', 'categories', 'header'));
+    }
+
+    public function categoryListings($category_id)
+    {
+        $user = Auth::user();
+        $ads = Ad::where('is_active', 1)->where('category_id', $category_id)->orderby('created_At', 'DESC')->paginate(20);
+        $categories = Category::withCount('ads')->get();
+        $category = Category::find($category_id);
+        $header = "all " . $category->name;
+        return view('pages.listings', compact('user', 'ads', 'categories', 'header'));
+    }
+
+    public function locationListings($location)
+    {
+        $user = Auth::user();
+        $ads = Ad::where('is_active', 1)->where('county', $location)->orderby('created_At', 'DESC')->paginate(20);
+        $categories = Category::withCount('ads')->get();
+        $header = $location . " Ads";
+        return view('pages.listings', compact('user', 'ads', 'categories', 'header'));
+    }
+
+    public function sellerListings($seller_id)
+    {
+        $user = Auth::user();
+        $ads = Ad::where('is_active', 1)->where('user_id', $seller_id)->orderby('created_At', 'DESC')->paginate(20);
+        $categories = Category::withCount('ads')->get();
+        $seller  =User::find($seller_id);
+        $header = $seller->fname.' '.$seller->lname . " Ads";
+        return view('pages.listings', compact('user', 'ads', 'categories', 'header'));
     }
 
     public function about()
@@ -70,27 +111,30 @@ class PagesController extends Controller
 
     public function adDetails($id)
     {
-        return view('pages.ad_details')->with('id', $id);
+        $ad = Ad::where('id', $id)->where('is_active', 1)->first();
+        $seller_ads = Ad::where('user_id', $ad->user_id)->where('is_active', 1)->take(5)->get();
+        return view('pages.ad_details', compact('ad', 'seller_ads'));
     }
 
     public function favouriteAds()
     {
         $user = Auth::user();
-        $ads = $user->getFavoriteItems(Ad::class)->get();
-        return view('pages.acc_fav_ads',compact('ads','user'));
+        $ads = $user->getFavoriteItems(Ad::class)->where('is_active', 1)->get();
+        return view('pages.acc_fav_ads', compact('ads', 'user'));
     }
 
     public function myAds()
     {
         $user = Auth::user();
-        $ads = Ad::where('user_id',$user->id)->get();
-        $featured_count = Ad::where('is_featured',1)->count();
-        return view('pages.acc_my_ads',compact('ads','user','featured_count'));
+        $ads = Ad::where('user_id', $user->id)->get();
+        $featured_count = Ad::where('is_featured', 1)->count();
+        return view('pages.acc_my_ads', compact('ads', 'user', 'featured_count'));
     }
 
-    public function settings()
+    public function profileSettings()
     {
-        return view('pages.acc_settings');
+        $user = Auth::user();
+        return view('pages.acc_settings', compact('user'));
     }
 
     function updateProfile(Request $request)
@@ -98,8 +142,10 @@ class PagesController extends Controller
         $user = Auth::user();
 
         $rules = [
-            'fname' => 'required',
-            'lname' => 'required',
+            'f_name' => 'required',
+            'l_name' => 'required',
+            'phone' => 'required',
+            'profile_picture' => 'mimes:jpeg,png,jpg|max:4048',
             'password' => 'same:confirm-password',
         ];
         $error = Validator::make($request->all(), $rules);
@@ -110,19 +156,20 @@ class PagesController extends Controller
             ], Response::HTTP_OK);
         }
 
-        $user->fname = $request->fname;
-        $user->lname = $request->lname;
+        $user->fname = $request->f_name;
+        $user->lname = $request->l_name;
         $user->phone = $request->phone;
 
         if (!empty($request->password)) {
             $user->password = Hash::make($request->password);
         }
 
-        if ($request->hasfile('profile_pic')) {
-            $imgdestination = '/ProfilePics';
-            $profile_pic = $request->file('profile_pic');
-            $imgname = $this->generateUniqueFileName($profile_pic, $imgdestination);
+        if ($request->hasfile('profile_picture')) {
+            $imgdestination = 'ProfilePics/';
+            $profile_pic = $request->file('profile_picture');
+            $imgname = $this->generateUniqueFileNameProfile($profile_pic, $imgdestination);
             $user->profile_pic = $imgname;
+
         }
 
         if ($user->update()) {
@@ -139,15 +186,12 @@ class PagesController extends Controller
     }
 
 
-    function uploadPost(Request $request)
+
+    public function ajaxLogin(Request $request)
     {
         $rules = [
-            'title' => 'required',
-            'category' => 'required',
-            'county' => 'required',
-            'price' => 'required|integer',
-            'desc' => 'required',
-            'main_image' => 'required|mimes:jpeg,png,jpg|max:4048',
+            'email' => 'string|required',
+            'password' => 'string|required',
         ];
         $error = Validator::make($request->all(), $rules);
 
@@ -156,83 +200,35 @@ class PagesController extends Controller
                 'errors' => $error->errors()->all(),
             ], Response::HTTP_OK);
         }
-        $user_id= Auth::user()->id;
-        $ad = new Ad();
-        $ad->user_id = $user_id;
-        $ad->title = $request->title;
-        $ad->category_id = $request->category;
-        $ad->county = $request->county;
-        $ad->price = $request->price;
-        $ad->description = $request->desc;
-        if ($ad->save()) {
 
-            $ad_id = $ad->id;
-            $imgdestination = '/openGateAds';
-            $gallerarray = [];
 
-            if ($request->hasfile('main_image')) {
-                $adImage = $request->file('main_image');
-                $imgname = $this->generateUniqueFileName($adImage, $imgdestination);
+        Auth::attempt(['email' => $request->email, 'password' => $request->password]);
 
-                $ad_image = new AdPhoto();
-                $ad_image->ad_id = $ad_id;
-                $ad_image->image_path = $imgname;
-                $ad_image->type = "main_image";
-                $ad_image->save();
-            }
+        if (Auth::check()) {
 
-            if ($request->hasfile('gallery')) {
-
-                foreach ($request->file('gallery') as $image) {
-                    $galleryname = $this->generateUniqueFileName($image, $imgdestination);
-                    $gallerarray[] = $galleryname;
-                }
-
-                foreach ($gallerarray as $img) {
-                    $ad_image = new AdPhoto();
-                    $ad_image->ad_id = $ad_id;
-                    $ad_image->image_path = $imgname;
-                    $ad_image->type = "gallery";
-                    $ad_image->save();
-                }
-            }
+            $user = Auth::user();
             return response([
-                'success' =>"Ad posted.",
+                'success' => 'Success! you are logged in successfully',
             ], Response::HTTP_OK);
-        }else{
+        } else {
             return response([
-                'error' =>"Failed to add post.",
-            ], Response::HTTP_OK);
-        }
-    }
-
-    public function favoriteAd(Request $request,$ad_id){
-        $user = Auth::user();
-        $ad = Ad::find($ad_id);
-        if ($user->hasFavorited($ad)){
-            $user->toggleFavorite($ad);
-            return response([
-                'success' =>"removed from favorites",
-            ], Response::HTTP_OK);
-        }else{
-            $user->toggleFavorite($ad);
-            return response([
-                'success' =>"Added to favorites",
+                'error' => 'Wrong email or password!',
             ], Response::HTTP_OK);
         }
 
 
     }
 
-    public function generateUniqueFileName($image, $destinationPath)
+    public function generateUniqueFileNameProfile($image, $destinationPath)
     {
         $initial = "openGate_";
-        $name = $initial  . bin2hex(random_bytes(8)) . '.' . $image->getClientOriginalExtension();
-        if ($image->move(public_path() . $destinationPath, $name)) {
-            return $name;
-        } else {
-            return null;
-        }
+        $name = $initial . bin2hex(random_bytes(8)) . '.' . $image->getClientOriginalExtension();
+        $img = Image::make($image->getRealPath());
+        $img->resize(100, 100, function ($constraint) {
+//            $constraint->aspectRatio();
+        })->save(public_path($destinationPath . $name));
+        return $name;
     }
+
 
 }

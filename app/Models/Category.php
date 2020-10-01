@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 use App\Traits\UsesUUID;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Dyrynda\Database\Support\CascadeSoftDeletes;
-use Models\Ad;
 class Category extends Model
 {
     use HasFactory,UsesUUID,SoftDeletes,CascadeSoftDeletes;

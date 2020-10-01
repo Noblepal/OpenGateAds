@@ -1,11 +1,7 @@
-@extends('layouts.app')
+@extends('pages.user_dashboard')
 
-
-@section('content')
-
-
-
-    <div class="page-header" style="background: url(assets/img/banner1.jpg);">
+@section('breadcrumb')
+    <div class="page-header" style="background: url({{asset('assets/img/banner1.jpg')}});">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
@@ -20,228 +16,74 @@
             </div>
         </div>
     </div>
+@endsection
+@section('user_content')
 
 
     <div id="content" class="section-padding">
         <div class="container">
             <div class="row">
-                <div class="col-sm-12 col-md-4 col-lg-3 page-sidebar">
-                    <aside>
-                        <div class="sidebar-box">
-                            <div class="user">
-                                <figure>
-                                    <a href="#"><img src="assets/img/author/img1.jpg" alt=""></a>
-                                </figure>
-                                <div class="usercontent">
-                                    <h3>Hello William!</h3>
-                                    <h4>Administrator</h4>
-                                </div>
-                            </div>
-                            <nav class="navdashboard">
-                                <ul>
-                                    <li>
-                                        <a href="dashboard.html">
-                                            <i class="lni-dashboard"></i>
-                                            <span>Dashboard</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="active" href="account-profile-setting.html">
-                                            <i class="lni-cog"></i>
-                                            <span>Profile Settings</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="account-myads.html">
-                                            <i class="lni-layers"></i>
-                                            <span>My Ads</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="offermessages.html">
-                                            <i class="lni-envelope"></i>
-                                            <span>Offers/Messages</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="payments.html">
-                                            <i class="lni-wallet"></i>
-                                            <span>Payments</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="account-favourite-ads.html">
-                                            <i class="lni-heart"></i>
-                                            <span>My Favourites</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="privacy-setting.html">
-                                            <i class="lni-star"></i>
-                                            <span>Privacy Settings</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <i class="lni-enter"></i>
-                                            <span>Logout</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                        <div class="widget">
-                            <h4 class="widget-title">Advertisement</h4>
-                            <div class="add-box">
-                                <img class="img-fluid" src="assets/img/img1.jpg" alt="">
-                            </div>
-                        </div>
-                    </aside>
-                </div>
+                @include('layouts.user_sidebar')
                 <div class="col-sm-12 col-md-8 col-lg-9">
                     <div class="row page-content">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-7">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                             <div class="inner-box">
                                 <div class="dashboard-box">
-                                    <h2 class="dashbord-title">Ad Detail</h2>
+                                    <h2 class="dashbord-title">Profile update</h2>
                                 </div>
+
                                 <div class="dashboard-wrapper">
-                                    <div class="form-group mb-3">
-                                        <label class="control-label">Project Title</label>
-                                        <input class="form-control input-md" name="Title" placeholder="Title"
-                                               type="text">
-                                    </div>
-                                    <div class="form-group mb-3 tg-inputwithicon">
-                                        <label class="control-label">Categories</label>
-                                        <div class="tg-select form-control">
-                                            <select>
-                                                <option value="none">Select Categories</option>
-                                                <option value="none">Mobiles</option>
-                                                <option value="none">Electronics</option>
-                                                <option value="none">Training</option>
-                                                <option value="none">Real Estate</option>
-                                                <option value="none">Services</option>
-                                                <option value="none">Training</option>
-                                                <option value="none">Vehicles</option>
-                                            </select>
+
+                                    <form id="profileForm">
+                                        @csrf
+                                        <div id="overlay-load" style="display:none;" class="loadoverlay">
+                                            <img src="{{url('/assets/img/loading.gif')}}" alt="loader">
+                                            <br>
+                                            updating...
                                         </div>
-                                    </div>
-                                    <div class="form-group mb-3">
-                                        <label class="control-label">Price Title</label>
-                                        <input class="form-control input-md" name="price" placeholder="Ad your Price"
-                                               type="text">
-                                        <div class="tg-checkbox mt-3">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" id="tg-priceoncall">
-                                                <label class="custom-control-label" for="tg-priceoncall">Price On
-                                                    Call</label>
-                                            </div>
+                                        <center style="margin-top:20px;"><span id="form_results"></span></center>
+                                        <div class="form-group mb-3">
+                                            <label class="control-label">First Name</label>
+                                            <input class="form-control input-md" name="f_name" placeholder="First name"
+                                                   type="text" required value="{{$user->fname}}">
                                         </div>
-                                    </div>
-                                    <div class="form-group md-3">
-                                        <section id="editor">
-                                            <div id="summernote">
+                                        <div class="form-group mb-3">
+                                            <label class="control-label">Last Name</label>
+                                            <input class="form-control input-md" name="l_name" placeholder="Last name"
+                                                   type="text" required value="{{$user->lname}}">
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label class="control-label">Contact Phone</label>
+                                            <input class="form-control input-md" name="phone" placeholder="Your phone"
+                                                   type="text" required value="{{$user->phone}}">
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label class="control-label">Email</label>
+                                            <input class="form-control input-md" name="" placeholder="Your email"
+                                                   type="text" disabled value="{{$user->email}}">
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label class="control-label">Profile Logo</label>
+                                            <input class="form-control input-md" name="profile_picture"
+                                                   type="file" accept="image/*">
+                                            <h6 class="mt-30">Security update (optional)</h6>
+                                            <div class="form-group mb-3">
+                                                <label class="control-label">Password</label>
+                                                <input class="form-control input-md" name="password" placeholder="Password"
+                                                       type="password" >
                                             </div>
-                                        </section>
-                                    </div>
-                                    <label class="tg-fileuploadlabel" for="tg-photogallery">
-                                        <span>Drop files anywhere to upload</span>
-                                        <span>Or</span>
-                                        <span class="btn btn-common">Select Files</span>
-                                        <span>Maximum upload file size: 500 KB</span>
-                                        <input id="tg-photogallery" class="tg-fileinput" type="file" name="file">
-                                    </label>
+                                            <div class="form-group mb-3">
+                                                <label class="control-label">Confirm Password</label>
+                                                <input class="form-control input-md" name="confirm-password" placeholder="Repeat password"
+                                                       type="password">
+                                            </div>
+
+                                        <button type="submit" class="btn btn-common" type="button">Update</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-5">
-                            <div class="inner-box">
-                                <div class="tg-contactdetail">
-                                    <div class="dashboard-box">
-                                        <h2 class="dashbord-title">Contact Detail</h2>
-                                    </div>
-                                    <div class="dashboard-wrapper">
-                                        <div class="form-group mb-3">
-                                            <strong>I’m a:</strong>
-                                            <div class="tg-selectgroup">
-    <span class="tg-radio">
-    <input id="tg-sameuser" type="radio" name="usertype" value="same user" checked="">
-    <label for="tg-sameuser">Same User</label>
-    </span>
-                                                <span class="tg-radio">
-    <input id="tg-someoneelse" type="radio" name="usertype" value="someone else">
-    <label for="tg-someoneelse">Someone Else</label>
-    </span>
-                                            </div>
-                                        </div>
-                                        <div class="form-group mb-3">
-                                            <label class="control-label">First Name*</label>
-                                            <input class="form-control input-md" name="name" type="text">
-                                        </div>
-                                        <div class="form-group mb-3">
-                                            <label class="control-label">Last Name*</label>
-                                            <input class="form-control input-md" name="name" type="text">
-                                        </div>
-                                        <div class="form-group mb-3">
-                                            <label class="control-label">Phone*</label>
-                                            <input class="form-control input-md" name="phone" type="text">
-                                        </div>
-                                        <div class="form-group mb-3">
-                                            <label class="control-label">Enter Address</label>
-                                            <input class="form-control input-md" name="address" type="text">
-                                        </div>
-                                        <div class="form-group mb-3">
-                                            <label class="control-label">Enter Address</label>
-                                            <input class="form-control input-md" name="address" type="text">
-                                        </div>
-                                        <div class="form-group mb-3 tg-inputwithicon">
-                                            <label class="control-label">Country</label>
-                                            <div class="tg-select form-control">
-                                                <select>
-                                                    <option value="none">Select Country</option>
-                                                    <option value="none">New York</option>
-                                                    <option value="none">California</option>
-                                                    <option value="none">Washington</option>
-                                                    <option value="none">Birmingham</option>
-                                                    <option value="none">Chicago</option>
-                                                    <option value="none">Phoenix</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group mb-3 tg-inputwithicon">
-                                            <label class="control-label">State</label>
-                                            <div class="tg-select form-control">
-                                                <select>
-                                                    <option value="none">Select State</option>
-                                                    <option value="none">Select State</option>
-                                                    <option value="none">Select State</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group mb-3 tg-inputwithicon">
-                                            <label class="control-label">City</label>
-                                            <div class="tg-select form-control">
-                                                <select>
-                                                    <option value="none">Select State</option>
-                                                    <option value="none">Select State</option>
-                                                    <option value="none">Select State</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="tg-checkbox">
-                                            <div class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input"
-                                                       id="tg-agreetermsandrules">
-                                                <label class="custom-control-label" for="tg-agreetermsandrules">I agree
-                                                    to all <a href="javascript:void(0);">Terms of Use &amp; Posting
-                                                        Rules</a></label>
-                                            </div>
-                                        </div>
-                                        <button class="btn btn-common" type="button">Post Ad</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -250,96 +92,104 @@
 
 
     <script>
-        $(document).ready(function () {
-            $('#county').select2();
-            $('#category').select2();;
+        // $(document).ready(function () {
 
 
-            $("#addForm").on("submit", function (e) {
-                e.preventDefault(),
-                    $(".updateoverlay").fadeIn();
-                $.ajax({
-                    url: "{{route('updateProfile')}}",
-                    method: "post",
-                    data: new FormData(this),
-                    contentType: !1,
-                    cache: !1,
-                    processData: !1,
-                    dataType: "json",
-                    success: function (data) {
-                        $(".updateoverlay").fadeOut();
-                        var html = "";
-                        if (data.errors) {
-                            html =
-                                '<div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" \
-                            data-dismiss="alert">&times;</button><div class="alert-icon"><i class="icon-close"></i></div><div class="alert-message">\
-                            <span><strong>Errors!</strong></span><br>';
-                            for (
-                                var count = 0;
-                                count < data.errors.length;
-                                count++
-                            ) {
-                                html +=
-                                    "<span>" +
-                                    data.errors[count] +
-                                    "</span><br>";
-                                Lobibox.notify("error", {
-                                    pauseDelayOnHover: true,
-                                    continueDelayOnInactiveTab: false,
-                                    position: "top right",
-                                    icon: "fa fa-times-circle",
-                                    msg: data.errors[count],
-                                });
-                            }
-                            html += "</div></div>";
-                        }
-                        if (data.warning) {
-                            html =
-                                '<div class="alert alert-warning">' +
-                                data.warning +
-                                "</div>";
-                            Lobibox.notify("warning", {
+        $("#profileForm").on("submit", function (e) {
+            e.preventDefault(),
+                $(".loadoverlay").fadeIn();
+            $.ajax({
+                url: "{{route('updateProfile')}}",
+                method: "post",
+                data: new FormData(this),
+                contentType: !1,
+                cache: !1,
+                processData: !1,
+                dataType: "json",
+                success: function (data) {
+                    $(".loadoverlay").fadeOut();
+                    var html = "";
+                    if (data.errors) {
+                        html =
+                            '<div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" \
+                        data-dismiss="alert">&times;</button><div class="alert-icon"><i class="icon-close"></i></div><div class="alert-message">\
+                        <span><strong>Errors!</strong></span><br>';
+                        for (
+                            var count = 0;
+                            count < data.errors.length;
+                            count++
+                        ) {
+                            html +=
+                                "<span>" +
+                                data.errors[count] +
+                                "</span><br>";
+                            Lobibox.notify("error", {
                                 pauseDelayOnHover: true,
                                 continueDelayOnInactiveTab: false,
                                 position: "top right",
                                 icon: "fa fa-times-circle",
-                                msg: data.warning,
+                                msg: data.errors[count],
                             });
                         }
-                        if (data.success) {
-                            html =
-                                '<div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" \
-                            data-dismiss="alert">&times;</button><div class="alert-icon"><i class="icon-check"></i></div><div class="alert-message">\
-                            <span><strong>Success!</strong> ' +
-                                data.success +
-                                "</span></div></div>";
-
-                            $("#form_results").html(html);
-                            Lobibox.notify("success", {
-                                pauseDelayOnHover: true,
-                                continueDelayOnInactiveTab: false,
-                                position: "top right",
-                                icon: "fa fa-check-circle",
-                                msg: data.success,
-                            });
-                            setTimeout(function () {
-                                $("#form_results").html("");
-                                $("#registerModal").hide();
-                                //   window.reload.href = "/";
-                            }, 2000);
-                        }
+                        html += "</div></div>";
+                    }
+                    if (data.error) {
+                        html =
+                            '<div class="alert alert-warning">' +
+                            data.error +
+                            "</div>";
+                        Lobibox.notify("error", {
+                            pauseDelayOnHover: true,
+                            continueDelayOnInactiveTab: false,
+                            position: "top right",
+                            icon: "fa fa-times-circle",
+                            msg: data.error,
+                        });
+                    }
+                    if (data.success) {
+                        html =
+                            '<div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" \
+                        data-dismiss="alert">&times;</button><div class="alert-icon"><i class="icon-check"></i></div><div class="alert-message">\
+                        <span><strong>Success!</strong> ' +
+                            data.success +
+                            "</span></div></div>";
 
                         $("#form_results").html(html);
+                        $('#profileForm')[0].reset();
+                        Lobibox.notify("success", {
+                            pauseDelayOnHover: true,
+                            continueDelayOnInactiveTab: false,
+                            position: "top right",
+                            icon: "fa fa-check-circle",
+                            msg: data.success,
+                        });
                         setTimeout(function () {
                             $("#form_results").html("");
-                        }, 2000);
+                            location.reload();
+                        }, 1000);
+                    }
 
-                    },
-                });
+                    $("#form_results").html(html);
+
+
+                },
+                error: function (data) {
+                    $(".loadoverlay").fadeOut();
+                    console.log(data);
+                    Lobibox.notify("error", {
+                        pauseDelayOnHover: true,
+                        continueDelayOnInactiveTab: false,
+                        position: "top right",
+                        icon: "fa fa-times-circle",
+                        msg: "Something went wrong",
+                    });
+
+                },
             });
-
-
         });
+
+
+        // });
 
 
     </script>

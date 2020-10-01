@@ -80,10 +80,11 @@
                                                 </td>
                                                 <td data-title="Action">
                                                     <div class="btns-actions">
-                                                        <a class="btn-action btn-view" href="#"><i class="lni-eye"></i></a>
-                                                        <a class="btn-action btn-edit" href="#"><i
+                                                        <a class="btn-action btn-edit"
+                                                           href="{{route('editPost',$ad->id)}}"><i
                                                                 class="lni-pencil"></i></a>
-                                                        <a class="btn-action btn-delete" href="#"><i
+                                                        <a class="btn-action btn-delete"
+                                                           onclick="deleteAd('{{$ad->id}}')"><i
                                                                 class="lni-trash"></i></a>
                                                     </div>
                                                 </td>
@@ -116,106 +117,66 @@
     </script>
 
     <script>
-        // $(document).ready(function () {
 
 
-        $("#addForm").on("submit", function (e) {
-            e.preventDefault(),
-                $(".loadoverlay").fadeIn();
-            $.ajax({
-                url: "{{route('uploadPost')}}",
-                method: "post",
-                data: new FormData(this),
-                contentType: !1,
-                cache: !1,
-                processData: !1,
-                dataType: "json",
-                success: function (data) {
-                    $(".loadoverlay").fadeOut();
-                    var html = "";
-                    if (data.errors) {
-                        html =
-                            '<div class="alert alert-danger alert-dismissible" role="alert"><button type="button" class="close" \
-                        data-dismiss="alert">&times;</button><div class="alert-icon"><i class="icon-close"></i></div><div class="alert-message">\
-                        <span><strong>Errors!</strong></span><br>';
-                        for (
-                            var count = 0;
-                            count < data.errors.length;
-                            count++
-                        ) {
-                            html +=
-                                "<span>" +
-                                data.errors[count] +
-                                "</span><br>";
+        function deleteAd(ad_id) {
+            var result = confirm("Want to delete?");
+            if (result) {
+
+                $.ajax({
+                    url: '{{route('deletePost')}}',
+                    method: 'Delete',
+                    data: {
+                        ad_id: ad_id,
+                        _token: "{{ csrf_token() }}",
+                    },
+                    success: function (data) {
+                        if (data.errors) {
                             Lobibox.notify("error", {
                                 pauseDelayOnHover: true,
                                 continueDelayOnInactiveTab: false,
                                 position: "top right",
                                 icon: "fa fa-times-circle",
-                                msg: data.errors[count],
+                                msg: data.errors,
                             });
                         }
-                        html += "</div></div>";
-                    }
-                    if (data.error) {
-                        html =
-                            '<div class="alert alert-warning">' +
-                            data.warning +
-                            "</div>";
+                        if (data.error) {
+                            Lobibox.notify("error", {
+                                pauseDelayOnHover: true,
+                                continueDelayOnInactiveTab: false,
+                                position: "top right",
+                                icon: "fa fa-check-circle", //path to image
+                                msg: data.error,
+                            });
+
+                        }
+                        if (data.success) {
+                            Lobibox.notify("success", {
+                                pauseDelayOnHover: true,
+                                continueDelayOnInactiveTab: false,
+                                position: "top right",
+                                icon: "fa fa-check-circle", //path to image
+                                msg: data.success,
+                            });
+                            location.reload();
+                        }
+
+
+                    },
+                    error: function (data) {
                         Lobibox.notify("error", {
                             pauseDelayOnHover: true,
                             continueDelayOnInactiveTab: false,
                             position: "top right",
                             icon: "fa fa-times-circle",
-                            msg: data.warning,
+                            msg: "Something went wrong",
                         });
-                    }
-                    if (data.success) {
-                        html =
-                            '<div class="alert alert-success alert-dismissible" role="alert"><button type="button" class="close" \
-                        data-dismiss="alert">&times;</button><div class="alert-icon"><i class="icon-check"></i></div><div class="alert-message">\
-                        <span><strong>Success!</strong> ' +
-                            data.success +
-                            "</span></div></div>";
 
-                        $("#form_results").html(html);
-                        $('#addForm')[0].reset();
-                        Lobibox.notify("success", {
-                            pauseDelayOnHover: true,
-                            continueDelayOnInactiveTab: false,
-                            position: "top right",
-                            icon: "fa fa-check-circle",
-                            msg: data.success,
-                        });
-                        setTimeout(function () {
-                            $("#form_results").html("");
+                    },
+                });
+            }
+        }
 
-                        }, 2000);
-                    }
-
-                    $("#form_results").html(html);
-                    setTimeout(function () {
-                        $("#form_results").html("");
-                    }, 2000);
-
-                },
-                error: function (data) {
-                    $(".loadoverlay").fadeOut();
-                    console.log(data);
-                    Lobibox.notify("error", {
-                        pauseDelayOnHover: true,
-                        continueDelayOnInactiveTab: false,
-                        position: "top right",
-                        icon: "fa fa-times-circle",
-                        msg: "Something went wrong" + data,
-                    });
-
-                },
-            });
-        });
-
-
-        // });
 
 
     </script>
