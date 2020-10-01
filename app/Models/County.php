@@ -11,5 +11,5 @@ use Iatstuti\Database\Support\CascadeSoftDeletes;
 class County extends Model
 {
     use HasFactory,UsesUUID;
-;
+
 }
