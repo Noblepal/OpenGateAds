@@ -7,7 +7,7 @@
             <div class="row justify-content-center">
                 <div class="col-md-12 col-lg-9 col-xs-12 text-center">
                     <div class="contents">
-                        <h1 class="head-title">Best Beehive Based <span class="year">Business </span></h1>
+                        <h1 class="head-title">Best Beehive Based <span class="year">Business</span></h1>
                         <p>Buy .. Sell .. Let .. Rent .. Hire .. Book</p>
                         <div class="search-bar">
                             <div class="search-inner">
