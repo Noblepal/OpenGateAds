@@ -1,8 +1,10 @@
 <?php
 
-use Illuminate\Database\Seeder;
+namespace Database\Seeders;
 
+use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
+
 class RoleTableSeeder extends Seeder
 {
     /**
@@ -13,8 +15,8 @@ class RoleTableSeeder extends Seeder
     public function run()
     {
         $roles = [
-            'Normal-User',
-            'Super-Admin',
+            'Normal User',
+            'Super Admin',
         ];
 
 

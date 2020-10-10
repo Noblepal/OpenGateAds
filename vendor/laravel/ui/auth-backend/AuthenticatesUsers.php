@@ -125,7 +125,11 @@ trait AuthenticatesUsers
      */
     protected function authenticated(Request $request, $user)
     {
-        //
+        if ($user->hasRole('Normal User')) {
+            return redirect()->intended(route('dashboard'));
+        } elseif ($user->hasRole('Super Admin')) {
+            return redirect()->intended(route('admin.dashboard'));
+        }
     }
 
     /**

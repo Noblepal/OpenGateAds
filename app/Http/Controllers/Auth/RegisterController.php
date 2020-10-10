@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 use DB;
 use Auth;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class RegisterController extends Controller
 {
@@ -92,29 +93,23 @@ class RegisterController extends Controller
         $user->password = $password; //hashed password.
         if ($user->save()) {
 
+            $user->assignRole('normal_user');
 
-//            DB::table('model_has_roles')->insert([
-//                'role_id' => '1',
-//                'model_type' => 'App\User',
-//                'model_id' => $user->id,
-//            ]);
             Auth::login($user, true);
             $user = Auth::user();
-            return redirect()->intended('/');
-//            if ($user->hasRole('Normal-User')) {
-
-                // dd($user);
-
-//                return redirect()->intended('home');
-//            } elseif ($user->hasRole('Super-Admin')) {
-
-//                return redirect()->intended('admin.index');
-//            }
+            if ($user->hasRole('Normal User')) {
+                return redirect()->intended('dashboard');
+            } elseif ($user->hasRole('Super Admin')) {
+                return redirect()->intended('admin.dashboard');
+            }
 
         }
-        //   $user->sendEmailVerificationNotification();
+//           $user->sendEmailVerificationNotification();
 
 
 
     }
+
+
+
 }

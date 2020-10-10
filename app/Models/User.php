@@ -9,13 +9,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Traits\UsesUUID;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Models\Ad;
 use Overtrue\LaravelFavorite\Traits\Favoriter;
-
+use Spatie\Permission\Traits\HasRoles;
+use App\Models\Ad;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, UsesUUID,SoftDeletes,CascadeSoftDeletes,Favoriter;
+    use HasFactory, Notifiable, UsesUUID,SoftDeletes,CascadeSoftDeletes,Favoriter,HasRoles;
     protected $cascadeDeletes = ['ads'];
 
     /**
@@ -49,4 +49,5 @@ class User extends Authenticatable
     {
         return $this->hasMany(Ad::class);
     }
+
 }
