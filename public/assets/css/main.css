@@ -816,7 +816,7 @@ a.back-to-top:focus {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(54, 59, 77, .88)
+    background: rgba(255, 255, 255, 0.281)
 }
 
 #hero-area .contents {
@@ -5481,4 +5481,20 @@ footer .menu li a:hover {
     color: #00B050;
     font-size: 28pt;
     margin-top: auto;
+}
+
+.m-red{
+    color: #ea0712 !important;
+}
+
+.m-green{
+    color: #00b050 !important;
+}
+
+.m-blue{
+    color: #0589f3 !important;
+}
+
+.m-purple{
+    color: #7030a0 !important;
 }

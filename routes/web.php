@@ -24,6 +24,8 @@ Auth::routes();
 Route::get('/', [PagesController::class, 'index'])->name('index');
 Route::get('/categories', [PagesController::class, 'categories'])->name('categories');
 Route::get('/listings', [PagesController::class, 'listings'])->name('listings');
+Route::get('/rejected', [PagesController::class, 'rejected'])->name('rejected');
+Route::get('/missed', [PagesController::class, 'missed'])->name('missed');
 Route::get('/category/{id}/listings', [PagesController::class, 'categoryListings'])->name('categoryListings');
 Route::get('/location/{name}/listings', [PagesController::class, 'locationListings'])->name('locationListings');
 Route::get('/seller/{id}/listings', [PagesController::class, 'sellerListings'])->name('sellerListings');

@@ -25,6 +25,7 @@ class CreateAdsTable extends Migration
             $table->string('county');
             $table->integer('is_featured')->default(0);
             $table->integer('is_active')->default(1);
+            $table->integer('rejected')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });
