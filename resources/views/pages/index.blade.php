@@ -87,7 +87,7 @@
 
     <section class="featured section-padding">
         <div class="container">
-            <h1 class="section-title">Latest Products</h1>
+            <h1 class="section-title">Latest Adverts</h1>
             <div class="row">
                 @include('includes.list_item')
             </div>
@@ -99,7 +99,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 wow fadeIn" data-wow-delay="0.5s">
-                    <h3 class="section-title">Featured Products</h3>
+                    <h3 class="section-title">Featured Adverts</h3>
                     <div id="new-products" class="owl-carousel owl-theme">
                         @foreach ($featured_ads as $ad)
 
@@ -180,7 +180,7 @@
                 <div class="col-lg-4 col-md-4 col-xs-12">
                     <div class="works-item">
                         <div class="icon-box my-number">
-                            1{{-- <i class="lni-users"></i> --}}
+                            <img src="{{ asset('assets/img/one.png') }}" alt="Step 1">{{-- <i class="lni-users"></i> --}}
                         </div>
                         <p>Create an Account</p>
                     </div>
@@ -188,7 +188,7 @@
                 <div class="col-lg-4 col-md-4 col-xs-12">
                     <div class="works-item">
                         <div class="icon-box my-number">
-                            2{{-- <i class="lni-bookmark-alt"></i> --}}
+                            <img src="{{ asset('assets/img/two.png') }}" alt="Step 2">{{-- <i class="lni-bookmark-alt"></i> --}}
                         </div>
                         <p>Post Free Ad</p>
                     </div>
@@ -196,7 +196,7 @@
                 <div class="col-lg-4 col-md-4 col-xs-12">
                     <div class="works-item">
                         <div class="icon-box my-number">
-                            3{{-- <i class="lni-thumbs-up"></i> --}}
+                            <img src="{{ asset('assets/img/three.png') }}" alt="Step 3">{{-- <i class="lni-thumbs-up"></i> --}}
                         </div>
                         <p>Deal Done</p>
                     </div>
