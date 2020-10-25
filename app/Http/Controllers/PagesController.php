@@ -61,6 +61,18 @@ class PagesController extends Controller
         $header = "all Ads";
         return view('pages.listings', compact('user', 'ads', 'categories', 'header'));
     }
+    public function rejected()
+    {
+        $user = Auth::user();
+        $header = "Rejected Adverts";
+        return view('pages.rejected', compact('user', 'header'));
+    }
+    public function missed()
+    {
+        $user = Auth::user();
+        $header = "Missed Adverts";
+        return view('pages.missed', compact('user', 'header'));
+    }
 
     public function categoryListings($category_id)
     {

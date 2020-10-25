@@ -27,6 +27,7 @@ class CreateAdsTable extends Migration
             $table->integer('is_active')->default(1);
             $table->integer('is_paid')->default(0);
             $table->string('exp_date')->nullable();
+            $table->integer('rejected')->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

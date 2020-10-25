@@ -32,7 +32,7 @@
 
 
     <nav class="navbar navbar-expand-lg bg-white fixed-top scrolling-navbar">
-        <div class="container">
+        <div class="container-fluid">
 
             <div class="navbar-header">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar"
@@ -59,7 +59,12 @@
                     <li class="nav-item {{ Route::currentRouteNamed('listings') ? 'active' : '' }}">
                         <a class="nav-link" href="{{route('listings')}}">Listings</a>
                     </li>
-
+                    <li class="nav-item {{ Route::currentRouteNamed('rejected') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{route('rejected')}}">Rejected Adverts</a>
+                    </li>
+                    <li class="nav-item {{ Route::currentRouteNamed('missed') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{route('missed')}}">Missed Adverts</a>
+                    </li>
                     <li class="nav-item {{ Route::currentRouteNamed('contact') ? 'active' : '' }}">
                         <a class="nav-link" href="{{route('contact')}}">
                             Contact
@@ -89,14 +94,14 @@
                     </li>
                 </ul>
                 <div class="post-btn">
-                    <a class="btn btn-common" href="/ad-post">{{-- <i class="lni-pencil-alt"> --}}</i> Post an Ad</a>
+                    <a class="btn btn-common" href="/ad-post">{{-- <i class="lni-pencil-alt"> --}}</i>  Post Ads</a>
                 </div>
             </div>
         </div>
 
         <ul class="mobile-menu">
             <div class="post-btn">
-                <a class="btn btn-common" href="/ad-post">{{-- <i class="lni-pencil-alt"> --}}</i> Post an Ad</a>
+                <a class="btn btn-common" href="/ad-post">{{-- <i class="lni-pencil-alt"> --}}</i> Post Ads</a>
             </div>
             <li><a href="{{route('index')}}">Home</a></li>
             <li>
@@ -104,6 +109,9 @@
             </li>
             <li>
                 <a href="{{route('listings')}}">Listings</a>
+            </li>
+            <li>
+                <a href="{{route('rejected')}}">Rejected Adverts</a>
             </li>
 
             <li>

@@ -11,7 +11,7 @@
     <h2 class="product-title">About Us</h2>
     <ol class="breadcrumb">
     <li><a href="#">Home /</a></li>
-    <li class="current">About Us</li>
+    <li class="current">About Open Gate</li>
     </ol>
     </div>
     </div>

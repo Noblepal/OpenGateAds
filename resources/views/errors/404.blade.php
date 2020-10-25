@@ -5,7 +5,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>NexusPlus - Classified Ads and Listing Template</title>
+    <title>OpenGate - Classified Ads and Listing Website</title>
 
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/fonts/line-icons.css') }}">
@@ -20,7 +20,7 @@
 
 <body>
 
-    @include('includes.header-no-banner')
+    @include('includes.header')
 
     <div class="error section-padding">
         <div class="container">
