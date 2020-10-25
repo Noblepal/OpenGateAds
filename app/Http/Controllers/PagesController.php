@@ -28,7 +28,7 @@ class PagesController extends Controller
         $counties = County::all();
         $categories = Category::all();
         $featured_ads = Ad::where('is_featured', 1)->where('is_Active', 1)->orderBy('updated_at', 'DESC')->get();
-        $ads = Ad::Where('is_active', 1)->orderBy('created_at', 'DESC')->paginate(6);
+        $ads = Ad::where('is_paid',1)->Where('is_active', 1)->orderBy('created_at', 'DESC')->paginate(6);
         return view('pages.index', compact('user', 'counties', 'categories', 'featured_ads', 'ads'));
     }
 
@@ -56,7 +56,7 @@ class PagesController extends Controller
     public function listings()
     {
         $user = Auth::user();
-        $ads = Ad::where('is_active', 1)->orderby('created_At', 'DESC')->paginate(20);
+        $ads = Ad::where('is_paid',1)->where('is_active', 1)->orderby('created_At', 'DESC')->paginate(20);
         $categories = Category::withCount('ads')->get();
         $header = "all Ads";
         return view('pages.listings', compact('user', 'ads', 'categories', 'header'));
@@ -65,7 +65,7 @@ class PagesController extends Controller
     public function categoryListings($category_id)
     {
         $user = Auth::user();
-        $ads = Ad::where('is_active', 1)->where('category_id', $category_id)->orderby('created_At', 'DESC')->paginate(20);
+        $ads = Ad::where('is_paid',1)->where('is_active', 1)->where('category_id', $category_id)->orderby('created_At', 'DESC')->paginate(20);
         $categories = Category::withCount('ads')->get();
         $category = Category::find($category_id);
         $header = "all " . $category->name;
@@ -75,7 +75,7 @@ class PagesController extends Controller
     public function locationListings($location)
     {
         $user = Auth::user();
-        $ads = Ad::where('is_active', 1)->where('county', $location)->orderby('created_At', 'DESC')->paginate(20);
+        $ads = Ad::where('is_paid',1)->where('is_active', 1)->where('county', $location)->orderby('created_At', 'DESC')->paginate(20);
         $categories = Category::withCount('ads')->get();
         $header = $location . " Ads";
         return view('pages.listings', compact('user', 'ads', 'categories', 'header'));
@@ -84,7 +84,7 @@ class PagesController extends Controller
     public function sellerListings($seller_id)
     {
         $user = Auth::user();
-        $ads = Ad::where('is_active', 1)->where('user_id', $seller_id)->orderby('created_At', 'DESC')->paginate(20);
+        $ads = Ad::where('is_paid',1)->where('is_active', 1)->where('user_id', $seller_id)->orderby('created_At', 'DESC')->paginate(20);
         $categories = Category::withCount('ads')->get();
         $seller  =User::find($seller_id);
         $header = $seller->fname.' '.$seller->lname . " Ads";
@@ -111,8 +111,8 @@ class PagesController extends Controller
 
     public function adDetails($id)
     {
-        $ad = Ad::where('id', $id)->where('is_active', 1)->first();
-        $seller_ads = Ad::where('user_id', $ad->user_id)->where('is_active', 1)->take(5)->get();
+        $ad = Ad::where('is_paid',1)->where('id', $id)->where('is_active', 1)->first();
+        $seller_ads = Ad::where('is_paid',1)->where('user_id', $ad->user_id)->where('is_active', 1)->take(5)->get();
         return view('pages.ad_details', compact('ad', 'seller_ads'));
     }
 
@@ -126,9 +126,15 @@ class PagesController extends Controller
     public function myAds()
     {
         $user = Auth::user();
-        $ads = Ad::where('user_id', $user->id)->get();
+        $ads = Ad::where('user_id', $user->id)->where('is_paid',1)->get();
         $featured_count = Ad::where('is_featured', 1)->count();
         return view('pages.acc_my_ads', compact('ads', 'user', 'featured_count'));
+    }
+    public function pendingPending()
+    {
+        $user = Auth::user();
+        $ads = Ad::where('user_id', $user->id)->where('is_paid',0)->get();
+        return view('pages.acc_pending_ads', compact('ads', 'user'));
     }
 
     public function profileSettings()

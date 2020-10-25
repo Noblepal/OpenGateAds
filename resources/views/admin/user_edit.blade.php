@@ -28,6 +28,9 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
+                                <div class="overlay-wrapper" style="display: none">
+                                    <div class="overlay"><i class="fas fa-3x fa-sync-alt fa-spin"></i><div class="text-bold pt-2">Loading...</div></div>
+                                </div>
                                 <form role="form" id="usersForm">
                                     @csrf
                                     <input type="hidden"  value="{{$user->id}}" name="id">
@@ -184,8 +187,6 @@
                         }
                         if (data.success) {
                             toastr.success(data.success);
-                            $('#usersForm')[0].reset();
-                            $('#usersTable').DataTable().ajax.reload();
                         }
 
                     },

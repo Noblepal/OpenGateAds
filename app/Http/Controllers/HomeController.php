@@ -13,9 +13,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Validator;
 use Yajra\Datatables\Datatables;
 use Image;
+use Spatie\Permission\Models\Permission;
 
 class HomeController extends Controller
 {
+
+
 
 
     /**
@@ -308,6 +311,7 @@ class HomeController extends Controller
             'lname' => ['required', 'string', 'max:255'],
             'roles' => ['required', 'array'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone' => [ 'required','integer'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
         ];
         $error = Validator::make($request->all(), $rules);
@@ -352,6 +356,7 @@ class HomeController extends Controller
             'fname' => ['required', 'string', 'max:255'],
             'lname' => ['required', 'string', 'max:255'],
             'roles' => ['required', 'array'],
+            'phone' => [ 'required','integer'],
             'password' => ['confirmed'],
         ];
         $error = Validator::make($request->all(), $rules);

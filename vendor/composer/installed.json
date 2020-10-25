@@ -108,6 +108,55 @@
         ]
     },
     {
+        "name": "bryceandy/laravel_pesapal",
+        "version": "v2.0.6",
+        "version_normalized": "2.0.6.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/bryceandy/laravel_pesapal.git",
+            "reference": "b22410484ee52f20134eba85de15e1855508c643"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/bryceandy/laravel_pesapal/zipball/b22410484ee52f20134eba85de15e1855508c643",
+            "reference": "b22410484ee52f20134eba85de15e1855508c643",
+            "shasum": ""
+        },
+        "require": {
+            "ext-curl": "*",
+            "php": ">=7.4"
+        },
+        "require-dev": {
+            "orchestra/testbench": "^5.3"
+        },
+        "time": "2020-07-06T21:22:55+00:00",
+        "type": "library",
+        "extra": {
+            "laravel": {
+                "providers": [
+                    "Bryceandy\\Laravel_Pesapal\\PesapalServiceProvider"
+                ]
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Bryceandy\\Laravel_Pesapal\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "bryceandy",
+                "email": "hello@bryceandy.com"
+            }
+        ],
+        "description": "An unofficial Pesapal API integration for Laravel. Multiple payment options including but not limited to M-Pesa, Tigo Pesa, Visa, Mastercard, American Express in Kenya, Tanzania & Uganda."
+    },
+    {
         "name": "dnoegel/php-xdg-base-dir",
         "version": "v0.1.1",
         "version_normalized": "0.1.1.0",

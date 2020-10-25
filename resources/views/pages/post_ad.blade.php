@@ -73,7 +73,7 @@
                                         <div class="form-group mb-3">
                                             <label class="control-label">Price</label>
                                             <input class="form-control input-md" name="price"
-                                                   placeholder="Ad your Price"
+                                                   placeholder="Ad Price"
                                                    type="text" required>
                                         </div>
                                         <div class="form-group md-3">

@@ -28,13 +28,6 @@
                         </a>
                     </li>
                     <li>
-                        <a class="{{ Route::currentRouteNamed('profileSettings') ? 'active' : '' }}"
-                           href="{{route('profileSettings')}}">
-                           <i class=""></i>
-                            <span> Profile Settings</span>
-                        </a>
-                    </li>
-                    <li>
                         <a class="{{ Route::currentRouteNamed('myAds') ? 'active' : '' }}"
                            href="{{route('myAds')}}">
                            <i class=""></i>
@@ -42,10 +35,24 @@
                         </a>
                     </li>
                     <li>
+                        <a class="{{ Route::currentRouteNamed('pendingPending') ? 'active' : '' }}"
+                           href="{{route('pendingPending')}}">
+                            <i class=""></i>
+                            <span> Pending Payment</span>
+                        </a>
+                    </li>
+                    <li>
                         <a class="{{ Route::currentRouteNamed('favouriteAds') ? 'active' : '' }}"
                            href="{{route('favouriteAds')}}">
                            <i class=""></i>
                             <span> My Favourites</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="{{ Route::currentRouteNamed('profileSettings') ? 'active' : '' }}"
+                           href="{{route('profileSettings')}}">
+                            <i class=""></i>
+                            <span> Profile Settings</span>
                         </a>
                     </li>
                     <li>

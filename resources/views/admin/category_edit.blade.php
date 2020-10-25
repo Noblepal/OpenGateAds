@@ -30,6 +30,9 @@
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
+                                <div class="overlay-wrapper" style="display: none">
+                                    <div class="overlay"><i class="fas fa-3x fa-sync-alt fa-spin"></i><div class="text-bold pt-2">Loading...</div></div>
+                                </div>
                                 <form role="form" id="categoryForm">
                                     @csrf
                                     <input type="hidden"  name="id" value="{{$category->id}}" >
@@ -106,8 +109,6 @@
                         }
                         if (data.success) {
                             toastr.success(data.success);
-                            $('#categoryForm')[0].reset();
-                            $('#categoryTable').DataTable().ajax.reload();
                         }
 
                     },

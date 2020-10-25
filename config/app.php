@@ -175,7 +175,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        'Intervention\Image\ImageServiceProvider'
+        'Intervention\Image\ImageServiceProvider',
+        Spatie\Permission\PermissionServiceProvider::class,
+        Bryceandy\Laravel_Pesapal\PesapalServiceProvider::class,
+
+
     ],
 
     /*
@@ -229,7 +233,6 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Image' => 'Intervention\Image\Facades\Image',
-        Spatie\Permission\PermissionServiceProvider::class,
     ],
 
 ];

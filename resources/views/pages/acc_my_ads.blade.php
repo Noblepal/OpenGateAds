@@ -41,29 +41,18 @@
                                     <table class="table table-responsive dashboardtable tablemyads">
                                         <thead>
                                         <tr>
-                                            <th>
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="checkedall">
-                                                    <label class="custom-control-label" for="checkedall"></label>
-                                                </div>
-                                            </th>
                                             <th>Photo</th>
                                             <th>Title</th>
                                             <th>Category</th>
-                                            <th>Ad Status</th>
+                                            <th>Status</th>
                                             <th>Price</th>
+                                            <th>Expiry</th>
                                             <th>Action</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         @foreach($ads as $ad)
                                             <tr data-category="{{$ad->is_active == 1 ? 'active' : 'inactive'}}">
-                                                <td>
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input type="checkbox" class="custom-control-input" id="adone">
-                                                        <label class="custom-control-label" for="adone"></label>
-                                                    </div>
-                                                </td>
                                                 <td class="photo"><img class="img-fluid"
                                                                        src="{{url('/openGateAds').'/'.$ad->photos->where('type','main_image')->pluck('image_path')->first()}}"
                                                                        alt="ad photo"></td>
@@ -77,6 +66,9 @@
                                                 </td>
                                                 <td data-title="Price">
                                                     <h3>Ksh {{number_format($ad->price, 0)}}</h3>
+                                                </td>
+                                                <td data-title="Expiry">
+                                                    <h3>{{$ad->exp_date}}</h3>
                                                 </td>
                                                 <td data-title="Action">
                                                     <div class="btns-actions">
@@ -176,7 +168,6 @@
                 });
             }
         }
-
 
 
     </script>

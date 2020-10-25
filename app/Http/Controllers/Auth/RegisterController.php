@@ -58,6 +58,7 @@ class RegisterController extends Controller
             'fname' => ['required', 'string', 'max:255'],
             'lname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone' => [ 'integer'],
             'password' => ['required', 'string', 'min:6', 'confirmed'],
         ]);
     }
@@ -93,14 +94,15 @@ class RegisterController extends Controller
         $user->password = $password; //hashed password.
         if ($user->save()) {
 
-            $user->assignRole('normal_user');
+            $user->assignRole('Normal User');
 
             Auth::login($user, true);
             $user = Auth::user();
+
             if ($user->hasRole('Normal User')) {
-                return redirect()->intended('dashboard');
+                return redirect()->intended(route('dashboard'));
             } elseif ($user->hasRole('Super Admin')) {
-                return redirect()->intended('admin.dashboard');
+                return redirect()->intended(route('admin.dashboard'));
             }
 
         }
