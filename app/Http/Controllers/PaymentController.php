@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendEmailJob;
 use App\Library\OAuthConsumer;
 use App\Library\OAuthRequest;
 use App\Models\Ad;
@@ -10,6 +11,7 @@ use App\Library\OAuthUtil;
 use App\Library\OAuthSignatureMethod_HMAC_SHA1;
 use Bryceandy\Laravel_Pesapal\Facades\Pesapal;
 use Bryceandy\Laravel_Pesapal\Payment;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
@@ -71,17 +73,17 @@ class PaymentController extends Controller
     public function PesaInit($ad_id)
     {
 
-
+        $user = Auth::user();
         $data = [
-            'amount' => 400,
+            'amount' => 1500,
             'currency' => 'KES',
             'description' => 'Ad payment',
             'type' => 'MERCHANT',
-            'reference' => 'de985855-8482-41bb-ae9b-e75684685570',
-            'first_name' => 'Optional',
-            'last_name' => 'Optional',
-            'email' => 'ericmukundi10@gmail.com',
-            'phone_number' => '254792946114',
+            'reference' => $ad_id,
+            'first_name' => $user->fname,
+            'last_name' => $user->lname,
+            'email' => $user->email,
+            'phone_number' => $user->phone,
         ];
         $query = http_build_query($data, null, '&', PHP_QUERY_RFC3986);
 //       dd( config('pesapal.consumer_key',1));
@@ -104,7 +106,7 @@ class PaymentController extends Controller
 
     }
 
-    public function PesapalIPNListener1(Request $request)
+    public function PesapalIPNListener(Request $request)
     {
         $transaction = Pesapal::getTransactionDetails(
             request('pesapal_merchant_reference'), request('pesapal_transaction_tracking_id')
@@ -113,19 +115,48 @@ class PaymentController extends Controller
         // Store the paymentMethod, trackingId and status in the database
         Payment::modify($transaction);
 
-        $status = $transaction['status'];
-        // also $status = Pesapal::statusByTrackingIdAndMerchantRef(request('pesapal_merchant_reference'), request('pesapal_transaction_tracking_id'));
-        // also $status = Pesapal::statusByMerchantRef(request('pesapal_merchant_reference'));
-        dd($status);
+        // If there was a status change and the status is not 'PENDING'
+        if (request('pesapal_notification_type') == "CHANGE" && request('pesapal_transaction_tracking_id') != '') {
+
+            //Here you can do multiple things to notify your user that the changed status of their payment
+            // 1. Send an email or SMS (if your user doesnt have an email)to your user
+            $payment = Payment::whereReference(request('pesapal_merchant_reference'))->first();
+            $details = [
+                'subject' => 'Open Gate Payment Status',
+                'company_name' => 'Open Gate Advertisement Space',
+                'email' => $payment->email,
+                'from' => 'noreply@mobharvesters.net',
+                'content' => 'Payment transaction ID is '.request('pesapal_transaction_tracking_id'). 'Your payment status is '. $transaction['status']
+            ];
+            dispatch(new SendEmailJob($details));
+//            Mail::to($payment->email)->send(new PaymentProcessed(request('pesapal_transaction_tracking_id'), $transaction['status']));
+            // PaymentProcessed is an example of a mailable email, it does not come with the package
+
+            // 2. You may also create a Laravel Event & Listener to process a Notification to the user
+            // 3. You can also create a Laravel Notification or dispatch a Laravel Job. Possibilities are endless!
+
+            $ad = Ad::find(request('pesapal_merchant_reference'));
+            $ad->is_paid = 1;
+            $ad->update();
+            // Finally output a response to PesaPal
+            $response = 'pesapal_notification_type=' . request('pesapal_notification_type') .
+                '&pesapal_transaction_tracking_id=' . request('pesapal_transaction_tracking_id') .
+                '&pesapal_merchant_reference=' . request('pesapal_merchant_reference');
+
+            ob_start();
+            echo $response;
+            ob_flush();
+            exit; // This is mandatory. If you dont exit, Pesapal will not get your response.
+        }
     }
 
-    public function PesapalIPNListener(Request $request)
+    public function PesapalIPNListener1(Request $request)
     {
-        $consumer_key = env('PESPAL_KEY');//Register a merchant account on
+        $consumer_key = 'quftf6zk9oMUxq3IOuiCpnYcj6HNo1+x';//Register a merchant account on
         //demo.pesapal.com and use the merchant key for testing.
         //When you are ready to go live make sure you change the key to the live account
         //registered on www.pesapal.com!
-        $consumer_secret = env('PESAPAL_SECRET');// Use the secret from your test
+        $consumer_secret = 'IPn6kp21Nqgx04o7VhNCa4fiqRo=';// Use the secret from your test
         //account on demo.pesapal.com. When you are ready to go live make sure you
         //change the secret to the live account registered on www.pesapal.com!
         $statusrequestAPI = 'https://demo.pesapal.com/api/querypaymentstatus';//change to
@@ -176,21 +207,26 @@ class PaymentController extends Controller
             $headerArray = explode("\r\n\r\n", $raw_header);
             $header = $headerArray[count($headerArray) - 1];
 
+            dd($response);
             //transaction status
             $elements = preg_split("/=/", substr($response, $header_size));
             $status = $elements[1];
 
             curl_close($ch);
-//            dd($response);
+
 
             //UPDATE YOUR DB TABLE WITH NEW STATUS FOR TRANSACTION WITH pesapal_transaction_tracking_id $pesapalTrackingId
             $payment = Payment::whereReference($pesapal_merchant_reference)->first();
-             $payment->status = $status;
-//             $payment->payment_method = payment_method;
-//             $payment->tracking_id = tracking_id;
+            $payment->status = $status;
+             $payment->payment_method = $elements[2];
+             $payment->tracking_id = $elements[3];
 
 
-            if ($payment->upate()) {
+            if ($payment->update()) {
+                $ad = Ad::find(request('pesapal_merchant_reference'));
+                $ad->is_paid = 1;
+                $ad->update();
+
                 $resp = "pesapal_notification_type=$pesapalNotification&pesapal_transaction_tracking_id=$pesapalTrackingId&pesapal_merchant_reference=$pesapal_merchant_reference";
                 ob_start();
                 echo $resp;

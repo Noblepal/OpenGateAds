@@ -84,7 +84,9 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::get('/clear-cache', function () {
-    $exitCode = Artisan::call('config:cache');
+     Artisan::call('config:cache');
+     Artisan::call('route:clear');
+     Artisan::call('view:clear');
     return 'Success';
 });
 

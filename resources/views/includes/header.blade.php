@@ -85,7 +85,7 @@
                                 <a class="dropdown-item" href="{{route('dashboard')}}"><i class="lni-user">
                                     </i> {{Auth::user()->fname.' '.Auth::user()->lname}}</a>
                             @else
-                                Login
+                                <a class="dropdown-item" href="{{route('login')}}"> Login</a>
                             @endif
                             <a class="dropdown-item" href="{{route('dashboard')}}">Dashboard</a>
                             <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
@@ -124,7 +124,8 @@
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     @auth
-                        {{-- Todo --}}
+                        <a href="{{route('dashboard')}}"><i class="lni-user">
+                            </i> {{Auth::user()->fname.' '.Auth::user()->lname}}</a>
                     @else
                         <li>
                             <a href="{{ route('login') }}">{{-- <i class="lni-lock"></i> --}} Log In</a>
