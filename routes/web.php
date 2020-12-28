@@ -22,6 +22,8 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
 
+//opengate
+//Route::group(['prefix' => 'opengate'], function () {
 Route::get('/', [PagesController::class, 'index'])->name('index');
 Route::get('/categories', [PagesController::class, 'categories'])->name('categories');
 Route::get('/listings', [PagesController::class, 'listings'])->name('listings');
@@ -36,7 +38,7 @@ Route::get('/ad/{id}/details', [PagesController::class, 'adDetails'])->name('adD
 Route::post('/require/login', [PagesController::class, 'ajaxLogin'])->name('ajaxLogin');
 Route::get('/maintenance', [PagesController::class, 'maintenance']);
 Route::get('/pesapal-ipn-listener', [PaymentController::class, 'PesapalIPNListener']);
-
+//});
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/ad-post', [PagesController::class, 'postAd'])->name('postAd');
     Route::get('/account-myads', [PagesController::class, 'myAds'])->name('myAds');
@@ -84,9 +86,9 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 Route::get('/clear-cache', function () {
-     Artisan::call('config:cache');
-     Artisan::call('route:clear');
-     Artisan::call('view:clear');
+    Artisan::call('config:cache');
+    Artisan::call('route:clear');
+    Artisan::call('view:clear');
     return 'Success';
 });
 

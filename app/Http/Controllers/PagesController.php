@@ -21,8 +21,7 @@ class PagesController extends Controller
     {
         return redirect('pages.maintenance');
     }
-
-    public function index()
+    public function Index()
     {
         $user = Auth::user();
         $counties = County::all();
