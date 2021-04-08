@@ -802,8 +802,8 @@ a.back-to-top:focus {
 }
 
 #hero-area {
-    background: url(../img/hero-area.jpg) no-repeat;
-    background-size: cover;
+   /*  background: url(../img/hero-area.jpg) no-repeat;
+    background-size: cover; */
     color: #fff;
     overflow: hidden;
     position: relative
