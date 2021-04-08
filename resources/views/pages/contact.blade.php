@@ -94,7 +94,7 @@
     <ul class="list-unstyled info">
     <li><span>Address : </span><p> Ruaraka, Nairobi 00100, Kenya</p></li>
     <li><span>Email : </span><p>admin@mobharvesters.net</p></li>
-    <li><span>Phone : </span><p>+254 704 383080</p></li>
+    <li><span>Phone : </span><p>-</p></li>
     </ul>
     </div>
     </div>
